@@ -1,0 +1,16 @@
+# Build ve geçici dosyalar
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+
+# Rider, VS Code, vb editör dosyaları
+.idea/
+.vscode/
+*.code-workspace
+
+# Çöp klasörler
+_cr/

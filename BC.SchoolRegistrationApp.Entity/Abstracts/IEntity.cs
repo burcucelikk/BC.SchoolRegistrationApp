@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BC.SchoolRegistrationApp.DAL
+namespace BC.SchoolRegistrationApp.Entity.Abstracts
 {
-    public class Class1
+    public interface IEntity
     {
+        public int ID { get; set; }
     }
 }
