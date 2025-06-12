@@ -12,8 +12,4 @@
     <PackageReference Include="DevExpress.Win.Design" Version="22.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BC.SchoolRegistrationApp.BL\BC.SchoolRegistrationApp.BL.csproj" />
-  </ItemGroup>
-
 </Project>

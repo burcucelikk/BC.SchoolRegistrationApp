@@ -13,4 +13,4 @@ obj/
 *.code-workspace
 
 # Çöp klasörler
-_cr/
+.cr/
