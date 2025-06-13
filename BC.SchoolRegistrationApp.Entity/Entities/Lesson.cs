@@ -13,7 +13,6 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
         public string Name { get; set; }
         public int ClassID {  get; set; }
         public Class Class { get; set; }
-        public int TeacherID {  get; set; }
-        public Teacher Teacher { get; set; }
+        public ICollection<Teacher> Teachers { get; set; }
     }
 }

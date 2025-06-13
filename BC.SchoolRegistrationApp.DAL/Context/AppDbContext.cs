@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,50 +17,18 @@ namespace BC.SchoolRegistrationApp.DAL.Context
         public DbSet<Student> Students { get; set; }
         public DbSet<LessonHour> LessonHour { get; set; }
         public DbSet<LessonSchedule> LessonSchedule { get; set; }
-        
+
         public AppDbContext(DbContextOptions<AppDbContext> option): base(option)
         {
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            base.OnConfiguring(optionsBuilder);
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
-
-            //Teacher
-            modelBuilder.Entity<Teacher>(entity =>
-            {
-
-            });
-
-            //Student
-            modelBuilder.Entity<Student>(entity =>
-            {
-
-            });
-
-            //Class 
-            modelBuilder.Entity<Class>(entity =>
-            {
-
-            });
-
-            //Lesson 
-            modelBuilder.Entity<Lesson>(entity =>
-            {
-
-            });
-
-            //LessonHour 
-            modelBuilder.Entity<Lesson>(entity =>
-            {
-
-            });
-
-            //LessonSchedule 
-            modelBuilder.Entity<Lesson>(entity =>
-            {
-
-            });
         }
     }
 }

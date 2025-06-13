@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BC.SchoolRegistrationApp.Entity.Entities
+namespace BC.SchoolRegistrationApp.Entity.Enums
 {
     public enum WeekDays
     {

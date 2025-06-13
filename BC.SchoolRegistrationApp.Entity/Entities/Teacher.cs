@@ -12,6 +12,7 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
         public int ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public ICollection<Lesson> Lessons { get; set; }
+        public int LessonID { get; set; }
+        public Lesson Lesson { get; set; }
     }
 }
