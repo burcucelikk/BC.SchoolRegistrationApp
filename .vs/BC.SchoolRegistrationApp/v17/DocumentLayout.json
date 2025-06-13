@@ -51,21 +51,19 @@
               "RelativeToolTip": "BC.SchoolRegistrationApp.Entity\\Enums\\WeekDays.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T14:11:56.787Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T14:11:56.787Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "BC.SchoolRegistrationApp.Entity",
+              "Title": "BC.SchoolRegistrationApp.Entity.csproj",
               "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj",
               "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj",
               "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj",
               "RelativeToolTip": "BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-06-13T14:11:36.444Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T14:11:36.444Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "BC.SchoolRegistrationApp.DAL\\Context\\AppDbContext.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAgwB0AAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T14:08:11.855Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-13T14:08:11.855Z"
             }
           ]
         }
