@@ -13,7 +13,9 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<Class> builder)
         {
-            
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.Name)
+                .HasMaxLength(4);
         }
     }
 }

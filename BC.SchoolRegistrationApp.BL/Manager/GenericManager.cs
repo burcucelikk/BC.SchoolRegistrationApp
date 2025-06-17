@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class GenericManager<T> :IService<T> where T: class, IEntity
+    public class GenericManager<T> :IGenericService<T> where T: class, IEntity
     {
         protected IUow _uow;
         public GenericManager(IUow uow)

@@ -11,8 +11,6 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public int ClassID {  get; set; }
-        public Class Class { get; set; }
         public ICollection<Teacher> Teachers { get; set; }
     }
 }
