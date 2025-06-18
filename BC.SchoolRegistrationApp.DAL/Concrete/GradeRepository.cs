@@ -1,6 +1,7 @@
 ﻿using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.DAL.Context;
 using BC.SchoolRegistrationApp.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Concrete
 {
-    public class LessonHourRepository :GenericRepository<LessonHour>, ILessonHourRepository
+    public class GradeRepository : GenericRepository<Grade>, IGradeRepository
     {
-        public LessonHourRepository(AppDbContext dbContext) : base(dbContext)
+        public GradeRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

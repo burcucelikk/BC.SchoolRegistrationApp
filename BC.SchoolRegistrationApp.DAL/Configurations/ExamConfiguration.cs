@@ -9,11 +9,15 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Configurations
 {
-    public class LessonHourConfiguration : IEntityTypeConfiguration<LessonHour>
+    public class ExamConfiguration : IEntityTypeConfiguration<Exam>
     {
-        public void Configure(EntityTypeBuilder<LessonHour> builder)
+        public void Configure(EntityTypeBuilder<Exam> builder)
         {
-            
+            builder.HasKey(x => x.ID);
+            builder.HasOne(x => x.Lesson)
+                .WithMany(x => x.Exams)
+                .HasForeignKey(x => x.LessonID);
+
         }
     }
 }

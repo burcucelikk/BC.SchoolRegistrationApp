@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class StudentManager : GenericManager<Student>, IStudentService
+    public class GradeManager : GenericManager<Grade>, IGradeService
     {
-        public StudentManager(IUow uow) : base(uow)
+        public GradeManager(IUow uow) : base(uow)
         {
         }
     }

@@ -1,5 +1,5 @@
 ﻿using BC.SchoolRegistrationApp.BL.Service;
-using BC.SchoolRegistrationApp.DAL.Uow;
+using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.Entity.Abstracts;
 using System;
 using System.Collections.Generic;

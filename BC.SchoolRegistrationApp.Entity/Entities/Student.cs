@@ -18,6 +18,7 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
 
         public int ClassID { get; set; }
         public Class Class { get; set; }
-        public ICollection<Lesson> Lessons { get; set; }
+        public bool IsPassed { get; set; }
+        public ICollection<Grade> Grades { get; set; }
     }
 }

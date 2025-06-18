@@ -14,5 +14,6 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
         public string Surname { get; set; }
         public int LessonID { get; set; }
         public Lesson Lesson { get; set; }
+        public ICollection<ClassLesson> ClassLessons { get; set; }
     }
 }

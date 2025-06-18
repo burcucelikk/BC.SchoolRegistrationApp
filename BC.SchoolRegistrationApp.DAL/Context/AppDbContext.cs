@@ -15,15 +15,12 @@ namespace BC.SchoolRegistrationApp.DAL.Context
         public DbSet<Class> Classes { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Student> Students { get; set; }
-        public DbSet<LessonHour> LessonHour { get; set; }
-        public DbSet<LessonSchedule> LessonSchedule { get; set; }
+        public DbSet<LessonSchedule> LessonSchedules { get; set; }
+        public DbSet<ClassLesson> ClassLessons { get; set; }
+        public DbSet<Grade> Grades { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> option): base(option)
         {
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

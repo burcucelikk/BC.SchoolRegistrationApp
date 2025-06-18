@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Concrete
 {
-    public class ClassLessonRepository : GenericRepository<ClassLesson>, IClassLessonRepository
+    public class ExamRepository : GenericRepository<Exam>, IExamRepository
     {
-        public ClassLessonRepository(AppDbContext dbContext) : base(dbContext)
+        public ExamRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Abstract
 {
-    public interface ILessonHourRepository : IGenericRepository<LessonHour>
+    public interface IGradeRepository :IGenericRepository<Grade>
     {
     }
 }

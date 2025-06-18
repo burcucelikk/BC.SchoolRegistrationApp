@@ -9,18 +9,20 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Configurations
 {
-    public class TeacherConfigurations : IEntityTypeConfiguration<Teacher>
+    public class ClassLessonConfiguration : IEntityTypeConfiguration<ClassLesson>
     {
-        public void Configure(EntityTypeBuilder<Teacher> builder)
+        public void Configure(EntityTypeBuilder<ClassLesson> builder)
         {
             builder.HasKey(x => x.ID);
-            builder.Property(x => x.Name)
-                .IsRequired();
-            builder.Property(x=>x.Surname)
-                .IsRequired();
+            builder.HasOne(x => x.Class)
+                .WithMany(x => x.ClassLessons)
+                .HasForeignKey(x => x.ClassID);
             builder.HasOne(x => x.Lesson)
-                .WithMany(x => x.Teachers)
+                .WithMany(x => x.ClassLessons)
                 .HasForeignKey(x => x.LessonID);
+            builder.HasOne(x => x.Teacher)
+                .WithMany(x => x.ClassLessons)
+                .HasForeignKey(x => x.TeacherID);
         }
     }
 }

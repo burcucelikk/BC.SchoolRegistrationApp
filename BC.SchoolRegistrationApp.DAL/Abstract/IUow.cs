@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BC.SchoolRegistrationApp.DAL.Uow
+namespace BC.SchoolRegistrationApp.DAL.Abstract
 {
     public interface IUow
     {

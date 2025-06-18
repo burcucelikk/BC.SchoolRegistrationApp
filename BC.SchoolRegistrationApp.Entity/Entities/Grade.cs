@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.Entity.Entities
 {
-    public class ClassLesson :IEntity
+    public class Grade :IEntity
     {
         public int ID { get; set; }
-        public int ClassID { get; set; }
-        public Class Class { get; set; }
-
+        public int StudentID { get; set; }
+        public Student Student { get; set; }
         public int LessonID { get; set; }
         public Lesson Lesson { get; set; }
-        public int TeacherID { get; set; }
-        public Teacher Teacher { get; set; }
-        public ICollection<LessonSchedule> LessonSchedules { get; set; }
+        public int ExamID { get; set; }
+        public Exam Exam { get; set; }
+        public double Score { get; set; }
     }
 }

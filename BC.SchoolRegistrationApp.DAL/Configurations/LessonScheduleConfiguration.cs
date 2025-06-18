@@ -13,7 +13,14 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
     {
         public void Configure(EntityTypeBuilder<LessonSchedule> builder)
         {
-
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.Day)
+                .IsRequired();
+            builder.Property(x=>x.LessonHour)
+                .IsRequired();
+            builder.HasOne(x => x.ClassLesson)
+                .WithMany(x => x.LessonSchedules)
+                .HasForeignKey(x => x.ClassLessonID);
         }
     }
 }

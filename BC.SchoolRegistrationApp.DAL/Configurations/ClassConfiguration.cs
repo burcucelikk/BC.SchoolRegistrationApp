@@ -15,7 +15,8 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         {
             builder.HasKey(x => x.ID);
             builder.Property(x => x.Name)
-                .HasMaxLength(4);
+                .HasMaxLength(4)
+                .IsRequired();
         }
     }
 }

@@ -13,7 +13,9 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
     {
         public void Configure (EntityTypeBuilder<Lesson> builder)
         {
-
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.Name)
+                .IsRequired();
         }
 
     }
