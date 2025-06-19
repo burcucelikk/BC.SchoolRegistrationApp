@@ -28,7 +28,7 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
             builder.HasOne(x => x.Exam)
                 .WithMany(x => x.Grades)
                 .HasForeignKey(x => x.ExamID)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

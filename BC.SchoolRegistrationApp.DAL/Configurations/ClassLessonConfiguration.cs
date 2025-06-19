@@ -14,15 +14,21 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         public void Configure(EntityTypeBuilder<ClassLesson> builder)
         {
             builder.HasKey(x => x.ID);
+
             builder.HasOne(x => x.Class)
                 .WithMany(x => x.ClassLessons)
-                .HasForeignKey(x => x.ClassID);
+                .HasForeignKey(x => x.ClassID)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.HasOne(x => x.Lesson)
                 .WithMany(x => x.ClassLessons)
-                .HasForeignKey(x => x.LessonID);
+                .HasForeignKey(x => x.LessonID)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(x => x.Teacher)
                 .WithMany(x => x.ClassLessons)
-                .HasForeignKey(x => x.TeacherID);
+                .HasForeignKey(x => x.TeacherID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

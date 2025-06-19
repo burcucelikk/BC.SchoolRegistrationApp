@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
@@ -13,6 +14,7 @@ namespace BC.SchoolRegistrationApp.BL.Manager
     {
         public StudentManager(IUow uow) : base(uow)
         {
+          
         }
     }
 }
