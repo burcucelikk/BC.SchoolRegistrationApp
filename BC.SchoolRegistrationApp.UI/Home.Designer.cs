@@ -38,8 +38,8 @@
             barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
-            barButtonItem8 = new DevExpress.XtraBars.BarButtonItem();
-            barButtonItem9 = new DevExpress.XtraBars.BarButtonItem();
+            AddButton = new DevExpress.XtraBars.BarButtonItem();
+            UpdateButton = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem10 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem11 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem12 = new DevExpress.XtraBars.BarButtonItem();
@@ -57,7 +57,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, ribbon.SearchEditItem, barButtonItem1, barButtonItem2, barButtonItem3, barButtonItem4, barButtonItem5, barButtonItem6, barButtonItem7, barButtonItem8, barButtonItem9, barButtonItem10, barButtonItem11, barButtonItem12, barButtonItem13 });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, ribbon.SearchEditItem, barButtonItem1, barButtonItem2, barButtonItem3, barButtonItem4, barButtonItem5, barButtonItem6, barButtonItem7, AddButton, UpdateButton, barButtonItem10, barButtonItem11, barButtonItem12, barButtonItem13 });
             ribbon.Location = new System.Drawing.Point(0, 0);
             ribbon.MaxItemId = 15;
             ribbon.Name = "ribbon";
@@ -122,22 +122,23 @@
             barButtonItem7.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem7.ImageOptions.LargeImage");
             barButtonItem7.Name = "barButtonItem7";
             // 
-            // barButtonItem8
+            // AddButton
             // 
-            barButtonItem8.Caption = "ADD";
-            barButtonItem8.Id = 8;
-            barButtonItem8.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barButtonItem8.ImageOptions.Image");
-            barButtonItem8.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem8.ImageOptions.LargeImage");
-            barButtonItem8.Name = "barButtonItem8";
-            barButtonItem8.ItemClick += barButtonItem8_ItemClick;
+            AddButton.Caption = "ADD";
+            AddButton.Id = 8;
+            AddButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("AddButton.ImageOptions.Image");
+            AddButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("AddButton.ImageOptions.LargeImage");
+            AddButton.Name = "AddButton";
+            AddButton.ItemClick += AddButton_ItemClick;
             // 
-            // barButtonItem9
+            // UpdateButton
             // 
-            barButtonItem9.Caption = "UPDATE";
-            barButtonItem9.Id = 9;
-            barButtonItem9.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barButtonItem9.ImageOptions.Image");
-            barButtonItem9.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem9.ImageOptions.LargeImage");
-            barButtonItem9.Name = "barButtonItem9";
+            UpdateButton.Caption = "UPDATE";
+            UpdateButton.Id = 9;
+            UpdateButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("UpdateButton.ImageOptions.Image");
+            UpdateButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("UpdateButton.ImageOptions.LargeImage");
+            UpdateButton.Name = "UpdateButton";
+            UpdateButton.ItemClick += UpdateButton_ItemClick;
             // 
             // barButtonItem10
             // 
@@ -146,6 +147,7 @@
             barButtonItem10.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barButtonItem10.ImageOptions.Image");
             barButtonItem10.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem10.ImageOptions.LargeImage");
             barButtonItem10.Name = "barButtonItem10";
+            barButtonItem10.ItemClick += barButtonItem10_ItemClick;
             // 
             // barButtonItem11
             // 
@@ -189,8 +191,8 @@
             // ribbonPageGroup3
             // 
             ribbonPageGroup3.AllowTextClipping = false;
-            ribbonPageGroup3.ItemLinks.Add(barButtonItem8);
-            ribbonPageGroup3.ItemLinks.Add(barButtonItem9);
+            ribbonPageGroup3.ItemLinks.Add(AddButton);
+            ribbonPageGroup3.ItemLinks.Add(UpdateButton);
             ribbonPageGroup3.ItemLinks.Add(barButtonItem10);
             ribbonPageGroup3.Name = "ribbonPageGroup3";
             // 
@@ -243,8 +245,8 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
         private DevExpress.XtraBars.BarButtonItem barButtonItem7;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem8;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem9;
+        private DevExpress.XtraBars.BarButtonItem AddButton;
+        private DevExpress.XtraBars.BarButtonItem UpdateButton;
         private DevExpress.XtraBars.BarButtonItem barButtonItem10;
         private DevExpress.XtraBars.BarButtonItem barButtonItem11;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;

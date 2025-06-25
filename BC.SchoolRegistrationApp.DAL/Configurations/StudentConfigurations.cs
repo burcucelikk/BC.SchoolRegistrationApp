@@ -1,4 +1,5 @@
-﻿using BC.SchoolRegistrationApp.Entity.Entities;
+﻿using BC.SchoolRegistrationApp.Entity.Abstracts;
+using BC.SchoolRegistrationApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,14 +16,21 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         {
             builder.HasKey(x => x.ID);
 
+            builder.Property(x => x.ID)
+              .ValueGeneratedOnAdd();
+
             builder.Property(x => x.Name)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
 
             builder.Property(x => x.Surname)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
 
             builder.Property(x => x.Number)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
+
             builder.HasIndex(x => x.Number)
                 .IsUnique();
 

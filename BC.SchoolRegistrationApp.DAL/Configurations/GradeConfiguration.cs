@@ -15,6 +15,10 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         public void Configure(EntityTypeBuilder<Grade> builder)
         {
             builder.HasKey(x=>x.ID);
+
+            builder.Property(x => x.ID)
+                .ValueGeneratedOnAdd();
+
             builder.HasOne(x => x.Student)
                 .WithMany(x => x.Grades)
                 .HasForeignKey(x => x.StudentID)

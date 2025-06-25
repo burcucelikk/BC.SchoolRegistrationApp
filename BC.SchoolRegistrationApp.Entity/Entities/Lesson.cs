@@ -11,6 +11,7 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public int WeeklyHour { get; set; }
         public ICollection<Exam> Exams { get; set; }
         public ICollection<Grade> Grades { get; set; }
         public ICollection<Teacher> Teachers { get; set; }

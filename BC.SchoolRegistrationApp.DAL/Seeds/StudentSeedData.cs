@@ -1,52 +1,19 @@
 ﻿using BC.SchoolRegistrationApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.DAL.Seeds
 {
-    public class SeedData
+    public class StudentSeedData : IEntityTypeConfiguration<Student>
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        public void Configure(EntityTypeBuilder<Student> builder)
         {
-            var classes = new[] 
-            {
-                new Class { ID = 1, Name = "9A" },
-                new Class { ID = 2, Name = "9B" },
-                new Class { ID = 3, Name = "9C" },
-                new Class { ID = 4, Name = "10A" },
-                new Class { ID = 5, Name = "10B" },
-                new Class { ID = 6, Name = "10C" },
-                new Class { ID = 7, Name = "11A" },
-                new Class { ID = 8, Name = "11B" },
-                new Class { ID = 9, Name = "11C" },
-                new Class { ID = 10, Name = "12A" },
-                new Class { ID = 11, Name = "12B" },
-                new Class { ID = 12, Name = "12C" },
-            };
-            modelBuilder.Entity<Class>().HasData(classes);
-
-            var lessons = new[]
-            {
-                new Lesson { ID = 1, Name = "English" },
-                new Lesson { ID = 2, Name = "Turkish" },
-                new Lesson { ID = 3, Name = "Mathematics" },
-                new Lesson { ID = 4, Name = "Physics" },
-                new Lesson { ID = 5, Name = "Chemistry" },
-                new Lesson { ID = 6, Name = "Biology" },
-                new Lesson { ID = 7, Name = "History" },
-                new Lesson { ID = 8, Name = "Geography" },
-                new Lesson { ID = 9, Name = "Religious Culture and Moral Knowledge" },
-                new Lesson { ID = 10, Name = "Physical Education and Sports" },
-                new Lesson { ID = 11, Name = "Visual Arts / Music" },
-                new Lesson { ID = 12, Name = "Health Knowledge and Traffic Culture" },
-                new Lesson { ID = 13, Name = "German" }
-            };
-            modelBuilder.Entity<Lesson>().HasData(lessons);
-
             var students = new List<Student>
             {
                 // 9A
@@ -132,10 +99,9 @@ namespace BC.SchoolRegistrationApp.DAL.Seeds
                 new Student { ID = 58, Name = "Arda", Surname = "Ersoy", Number = "12003", Photograph = "", ClassID = 12, IsPassed = false },
                 new Student { ID = 59, Name = "İdil", Surname = "Yücel", Number = "12004", Photograph = "", ClassID = 12, IsPassed = false },
                 new Student { ID = 60, Name = "Melek", Surname = "Güler", Number = "12005", Photograph = "", ClassID = 12, IsPassed = false }
+
             };
-
-            modelBuilder.Entity<Student>().HasData(students);
-
+            builder.HasData(students);
         }
     }
 }

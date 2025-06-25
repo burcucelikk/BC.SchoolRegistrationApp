@@ -1,6 +1,7 @@
 ﻿using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.DAL.Context;
 using BC.SchoolRegistrationApp.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,12 @@ namespace BC.SchoolRegistrationApp.DAL.Concrete
     {
         public StudentRepository(AppDbContext dbContext) : base(dbContext)
         {
+        }
+        public List<Student> GetStudentsByClassName(string className)
+        {
+            return _dbSet.Include(s => s.Class)
+                   .Where(s => s.Class.Name == className)
+                   .ToList();
         }
     }
 }

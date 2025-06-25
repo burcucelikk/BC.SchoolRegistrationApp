@@ -7,32 +7,48 @@ using System.Linq;
 using System.Windows.Forms;
 using BC.SchoolRegistrationApp.DAL.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using BC.SchoolRegistrationApp.BL.Service;
+using BC.SchoolRegistrationApp.BL.Manager;
+using Microsoft.Extensions.Logging;
+using System.Reflection;
 
 namespace BC.SchoolRegistrationApp.UI
 {
     internal static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        public static IServiceProvider ServiceProvider { get; private set; }
+
         [STAThread]
         static void Main()
         {
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var host = Host.CreateDefaultBuilder().ConfigureServices((context, services) =>
-            {
-                var connectionString = "Data Source=BURCU\\SQLEXP2;Initial Catalog=SchoolRegistrationAppDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-                services.AddDALDependencies(connectionString);
-                services.AddScoped<Home>();
-            })
-                .Build();
-            using (var scope = host.Services.CreateScope())
+            
+            var host= CreateHostBuilder().Build();
+            ServiceProvider = host.Services;
+            using (var scope = ServiceProvider.CreateScope())
             {
                 var services=scope.ServiceProvider;
                 Application.Run(services.GetRequiredService<Home>());
             }
+        }
+        static IHostBuilder CreateHostBuilder()
+        {
+            var connectionString = "Data Source=BURCU\\SQLEXP2;Initial Catalog=SchoolRegistrationAppDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            return Host.CreateDefaultBuilder()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                })
+                .ConfigureServices((context, services) => {
+                    services.AddDALDependencies(connectionString);
+                    services.AddScoped<IClassService,ClassManager>();
+                    services.AddScoped<IStudentService, StudentManager>();
+                    services.AddScoped<Home>();
+                    services.AddScoped<FrmStudents>();
+                });
         }
     }
 }

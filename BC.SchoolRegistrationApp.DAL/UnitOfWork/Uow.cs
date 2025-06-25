@@ -13,10 +13,17 @@ namespace BC.SchoolRegistrationApp.DAL.UnitOfWork
     public class Uow : IUow
     {
         private readonly AppDbContext _context;
+        private IClassRepository _classRepository;
+        private IStudentRepository _studentRepository;
         public Uow(AppDbContext context)
         {
             _context = context;
         }
+
+        public IClassRepository classRepository => _classRepository ??= new ClassRepository(_context);
+
+        public IStudentRepository studentRepository => _studentRepository ??= new StudentRepository(_context);
+
         public void SaveChanges()
         {
             _context.SaveChanges();

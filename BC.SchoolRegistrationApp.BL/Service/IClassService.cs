@@ -9,6 +9,7 @@ namespace BC.SchoolRegistrationApp.BL.Service
 {
     public interface IClassService : IGenericService<Class>
     {
-
+        List<string> GetClassNames();
+        int GetIDByName(string className);
     }
 }

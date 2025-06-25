@@ -15,6 +15,9 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         {
             builder.HasKey(x => x.ID);
 
+            builder.Property(x=>x.ID)
+                .ValueGeneratedOnAdd();
+
             builder.HasOne(x => x.Class)
                 .WithMany(x => x.ClassLessons)
                 .HasForeignKey(x => x.ClassID)

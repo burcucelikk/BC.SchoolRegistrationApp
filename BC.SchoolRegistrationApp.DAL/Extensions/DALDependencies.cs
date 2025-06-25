@@ -14,7 +14,7 @@ namespace BC.SchoolRegistrationApp.DAL.Extensions
 {
     public static class DALDependencies
     {
-        public static void AddDALDependencies (this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddDALDependencies (this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<AppDbContext>(x =>
             {
@@ -30,6 +30,8 @@ namespace BC.SchoolRegistrationApp.DAL.Extensions
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
             services.AddScoped<IUow, Uow>();
+
+            return services;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BC.SchoolRegistrationApp.Entity.Entities
 
         public string Surname { get; set; }
         public string Number { get; set; }
-        public string Photograph { get; set; }
+        public string? Photograph { get; set; }
 
         public int ClassID { get; set; }
         public Class Class { get; set; }

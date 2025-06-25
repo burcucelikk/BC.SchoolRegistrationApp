@@ -16,5 +16,9 @@ namespace BC.SchoolRegistrationApp.BL.Manager
         {
           
         }
+        public List<Student> GetStudentsByClassName(string className)
+        {
+            return _uow.studentRepository.GetStudentsByClassName(className);
+        }
     }
 }

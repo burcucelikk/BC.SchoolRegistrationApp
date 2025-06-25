@@ -14,6 +14,8 @@ namespace BC.SchoolRegistrationApp.DAL.Configurations
         public void Configure(EntityTypeBuilder<Exam> builder)
         {
             builder.HasKey(x => x.ID);
+            builder.Property(x=>x.ID)
+                .ValueGeneratedOnAdd();
 
             builder.HasOne(x => x.Lesson)
                 .WithMany(x => x.Exams)

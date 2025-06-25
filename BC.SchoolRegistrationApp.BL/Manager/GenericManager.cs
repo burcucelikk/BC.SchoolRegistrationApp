@@ -17,12 +17,24 @@ namespace BC.SchoolRegistrationApp.BL.Manager
             _uow = uow;
         }
         
-        public void Add(T entity)=> _uow.GetRepository<T>().Add(entity);
-        public void Delete(T entity) => _uow.GetRepository<T>().Delete(entity);
+        public void Add(T entity)
+        {
+            _uow.GetRepository<T>().Add(entity);
+            _uow.SaveChanges();
+        }
+        public void Delete(T entity) 
+        {
+            _uow.GetRepository<T>().Delete(entity);
+            _uow.SaveChanges();
+        }
 
         public List<T> GetAll()=> _uow.GetRepository<T>().GetAll();
         public T? GetById(int id)=> _uow.GetRepository<T>().GetById(id);
 
-        public void Update(T entitiy)=> _uow.GetRepository<T>().Update(entitiy);
+        public void Update(T entity)
+        {
+            _uow.GetRepository<T>().Update(entity);
+            _uow.SaveChanges();
+        }
     }
 }

@@ -39,9 +39,9 @@
             SchoolImages.AnimationTime = 300;
             SchoolImages.AutoSlide = DevExpress.XtraEditors.Controls.AutoSlide.Forward;
             SchoolImages.AutoSlideInterval = 3000;
-            SchoolImages.Location = new System.Drawing.Point(234, 12);
+            SchoolImages.Location = new System.Drawing.Point(0, -6);
             SchoolImages.Name = "SchoolImages";
-            SchoolImages.Size = new System.Drawing.Size(419, 219);
+            SchoolImages.Size = new System.Drawing.Size(867, 385);
             SchoolImages.TabIndex = 0;
             SchoolImages.Text = "ımageSlider1";
             // 

@@ -1,4 +1,7 @@
-﻿using DevExpress.XtraBars;
+﻿using BC.SchoolRegistrationApp.BL.Service;
+using BC.SchoolRegistrationApp.DAL.Context;
+using DevExpress.XtraBars;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +16,21 @@ namespace BC.SchoolRegistrationApp.UI
 {
     public partial class Home : DevExpress.XtraBars.Ribbon.RibbonForm
     {
+        private readonly IClassService _classService;
+        private readonly IStudentService _studentService;
+
         FrmStudents frmStudents;
         FrmAboutSchool frmAboutSchool;
-        public Home()
+        public Home(IClassService classService, IStudentService studentService)
         {
             InitializeComponent();
+            _classService = classService;
+            _studentService = studentService;
         }
 
         private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
         {
             ShowAboutForm();
-            
         }
 
         private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
@@ -40,7 +47,7 @@ namespace BC.SchoolRegistrationApp.UI
         {
             if (frmStudents == null || frmStudents.IsDisposed)
             {
-                frmStudents = new FrmStudents();
+                frmStudents = new FrmStudents(_classService, _studentService);
                 frmStudents.MdiParent = this;
                 frmStudents.Show();
             }
@@ -58,19 +65,38 @@ namespace BC.SchoolRegistrationApp.UI
             else
                 frmAboutSchool.BringToFront();
         }
-        private void barButtonItem8_ItemClick(object sender, ItemClickEventArgs e)
+
+        private void AddButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             if (frmStudents != null && !frmStudents.IsDisposed)
             {
-                frmStudents.ShowAddView(); // Add işlemi için görünümü değiştir
-                frmStudents.BringToFront(); // Öğrenci formunu en öne getir
+                frmStudents.ShowAddView();
+                frmStudents.BringToFront();
             }
             else
             {
-                // Eğer form açık değilse önce aç, sonra ShowAddView uygula
                 ShowStudentsForm();
                 frmStudents.ShowAddView();
             }
+        }
+
+        private void UpdateButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (frmStudents != null && !frmStudents.IsDisposed)
+            {
+                frmStudents.ShowAddView();
+                frmStudents.BringToFront();
+            }
+            else
+            {
+                ShowStudentsForm();
+                frmStudents.ShowAddView();
+            }
+        }
+
+        private void barButtonItem10_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

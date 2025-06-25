@@ -9,6 +9,9 @@ namespace BC.SchoolRegistrationApp.DAL.Abstract
 {
     public interface IUow
     {
+        IClassRepository classRepository { get; }
+        IStudentRepository studentRepository { get; }
+
         void SaveChanges();
         IGenericRepository<T> GetRepository<T>() where T: class, IEntity;
     }

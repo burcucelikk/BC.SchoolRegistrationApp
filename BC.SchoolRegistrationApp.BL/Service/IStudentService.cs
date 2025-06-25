@@ -9,6 +9,6 @@ namespace BC.SchoolRegistrationApp.BL.Service
 {
     public interface IStudentService : IGenericService<Student>
     {
-
+        List<Student> GetStudentsByClassName(string className);
     }
 }
