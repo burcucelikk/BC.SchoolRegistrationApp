@@ -33,6 +33,7 @@
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ClassForList = new DevExpress.XtraEditors.ComboBoxEdit();
             TextGroup = new DevExpress.XtraEditors.GroupControl();
+            searchButton = new DevExpress.XtraEditors.SimpleButton();
             imageEdit1 = new DevExpress.XtraEditors.ImageEdit();
             labelControl5 = new DevExpress.XtraEditors.LabelControl();
             labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -73,11 +74,12 @@
             // 
             gridView1.GridControl = StudentsGrid;
             gridView1.Name = "gridView1";
+            gridView1.OptionsBehavior.Editable = false;
             gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // ClassForList
             // 
-            ClassForList.Location = new System.Drawing.Point(740, 7);
+            ClassForList.Location = new System.Drawing.Point(740, -1);
             ClassForList.Name = "ClassForList";
             ClassForList.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             ClassForList.Size = new System.Drawing.Size(127, 22);
@@ -86,6 +88,7 @@
             // 
             // TextGroup
             // 
+            TextGroup.Controls.Add(searchButton);
             TextGroup.Controls.Add(imageEdit1);
             TextGroup.Controls.Add(labelControl5);
             TextGroup.Controls.Add(labelControl4);
@@ -102,17 +105,27 @@
             TextGroup.Size = new System.Drawing.Size(395, 373);
             TextGroup.TabIndex = 10;
             // 
+            // searchButton
+            // 
+            searchButton.Location = new System.Drawing.Point(301, 139);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new System.Drawing.Size(60, 25);
+            searchButton.TabIndex = 12;
+            searchButton.Text = "SEARCH";
+            searchButton.Click += searchButton_Click;
+            // 
             // imageEdit1
             // 
-            imageEdit1.Location = new System.Drawing.Point(128, 148);
+            imageEdit1.Location = new System.Drawing.Point(130, 169);
             imageEdit1.Name = "imageEdit1";
             imageEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            imageEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
             imageEdit1.Size = new System.Drawing.Size(156, 22);
             imageEdit1.TabIndex = 11;
             // 
             // labelControl5
             // 
-            labelControl5.Location = new System.Drawing.Point(78, 39);
+            labelControl5.Location = new System.Drawing.Point(80, 48);
             labelControl5.Name = "labelControl5";
             labelControl5.Size = new System.Drawing.Size(47, 16);
             labelControl5.TabIndex = 10;
@@ -120,7 +133,7 @@
             // 
             // labelControl4
             // 
-            labelControl4.Location = new System.Drawing.Point(33, 148);
+            labelControl4.Location = new System.Drawing.Point(35, 169);
             labelControl4.Name = "labelControl4";
             labelControl4.Size = new System.Drawing.Size(89, 16);
             labelControl4.TabIndex = 9;
@@ -128,7 +141,7 @@
             // 
             // labelControl3
             // 
-            labelControl3.Location = new System.Drawing.Point(65, 122);
+            labelControl3.Location = new System.Drawing.Point(67, 143);
             labelControl3.Name = "labelControl3";
             labelControl3.Size = new System.Drawing.Size(57, 16);
             labelControl3.TabIndex = 8;
@@ -136,7 +149,7 @@
             // 
             // labelControl2
             // 
-            labelControl2.Location = new System.Drawing.Point(56, 94);
+            labelControl2.Location = new System.Drawing.Point(58, 115);
             labelControl2.Name = "labelControl2";
             labelControl2.Size = new System.Drawing.Size(66, 16);
             labelControl2.TabIndex = 7;
@@ -144,7 +157,7 @@
             // 
             // labelControl1
             // 
-            labelControl1.Location = new System.Drawing.Point(80, 67);
+            labelControl1.Location = new System.Drawing.Point(82, 88);
             labelControl1.Name = "labelControl1";
             labelControl1.Size = new System.Drawing.Size(42, 16);
             labelControl1.TabIndex = 6;
@@ -155,7 +168,7 @@
             Save.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             Save.Appearance.Options.UseFont = true;
             Save.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("Save.ImageOptions.Image");
-            Save.Location = new System.Drawing.Point(151, 299);
+            Save.Location = new System.Drawing.Point(159, 296);
             Save.Name = "Save";
             Save.Size = new System.Drawing.Size(105, 36);
             Save.TabIndex = 5;
@@ -164,7 +177,7 @@
             // 
             // ClassForAdd
             // 
-            ClassForAdd.Location = new System.Drawing.Point(128, 36);
+            ClassForAdd.Location = new System.Drawing.Point(130, 45);
             ClassForAdd.Name = "ClassForAdd";
             ClassForAdd.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             ClassForAdd.Size = new System.Drawing.Size(156, 22);
@@ -172,22 +185,23 @@
             // 
             // textEdit3
             // 
-            textEdit3.Location = new System.Drawing.Point(128, 120);
+            textEdit3.Location = new System.Drawing.Point(130, 141);
             textEdit3.Name = "textEdit3";
             textEdit3.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.NumericMaskManager));
+            textEdit3.Properties.MaskSettings.Set("mask", "d");
             textEdit3.Size = new System.Drawing.Size(156, 22);
             textEdit3.TabIndex = 2;
             // 
             // textEdit2
             // 
-            textEdit2.Location = new System.Drawing.Point(128, 92);
+            textEdit2.Location = new System.Drawing.Point(130, 113);
             textEdit2.Name = "textEdit2";
             textEdit2.Size = new System.Drawing.Size(156, 22);
             textEdit2.TabIndex = 1;
             // 
             // textEdit1
             // 
-            textEdit1.Location = new System.Drawing.Point(128, 64);
+            textEdit1.Location = new System.Drawing.Point(130, 85);
             textEdit1.Name = "textEdit1";
             textEdit1.Size = new System.Drawing.Size(156, 22);
             textEdit1.TabIndex = 0;
@@ -205,7 +219,9 @@
             // 
             gridView2.GridControl = AddUpdateDeleteGrid;
             gridView2.Name = "gridView2";
+            gridView2.OptionsBehavior.Editable = false;
             gridView2.OptionsView.ShowGroupPanel = false;
+            gridView2.VertScrollVisibility = DevExpress.XtraGrid.Views.Base.ScrollVisibility.Never;
             // 
             // FrmStudents
             // 
@@ -254,5 +270,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ImageEdit imageEdit1;
+        private DevExpress.XtraEditors.SimpleButton searchButton;
     }
 }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BC.SchoolRegistrationApp.UI.FrmStudents;
 
 namespace BC.SchoolRegistrationApp.UI
 {
@@ -19,6 +20,8 @@ namespace BC.SchoolRegistrationApp.UI
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
 
+        private FormMode _currentMode;
+
         FrmStudents frmStudents;
         FrmAboutSchool frmAboutSchool;
         public Home(IClassService classService, IStudentService studentService)
@@ -26,6 +29,10 @@ namespace BC.SchoolRegistrationApp.UI
             InitializeComponent();
             _classService = classService;
             _studentService = studentService;
+        }
+        private void Home_Load(object sender, EventArgs e)
+        {
+            ShowAboutForm();
         }
 
         private void barButtonItem2_ItemClick(object sender, ItemClickEventArgs e)
@@ -39,20 +46,23 @@ namespace BC.SchoolRegistrationApp.UI
             frmStudents.ResetView();
         }
 
-        private void Home_Load(object sender, EventArgs e)
+        private void AddButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            ShowAboutForm();
+            ShowStudentsForm();
+            frmStudents.SetFormMode(FormMode.Add);
+            frmStudents.ShowTextGroupView();
         }
-        private void ShowStudentsForm()
+
+        private void UpdateButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (frmStudents == null || frmStudents.IsDisposed)
-            {
-                frmStudents = new FrmStudents(_classService, _studentService);
-                frmStudents.MdiParent = this;
-                frmStudents.Show();
-            }
-            else
-                frmStudents.BringToFront();
+            ShowStudentsForm();
+            frmStudents.SetFormMode(FormMode.Update);
+            frmStudents.ShowTextGroupView();
+        }
+
+        private void DeleteButton_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            _currentMode = FormMode.Delete;
         }
         private void ShowAboutForm()
         {
@@ -65,38 +75,18 @@ namespace BC.SchoolRegistrationApp.UI
             else
                 frmAboutSchool.BringToFront();
         }
-
-        private void AddButton_ItemClick(object sender, ItemClickEventArgs e)
+        private void ShowStudentsForm()
         {
-            if (frmStudents != null && !frmStudents.IsDisposed)
+            if (frmStudents == null || frmStudents.IsDisposed)
             {
-                frmStudents.ShowAddView();
-                frmStudents.BringToFront();
+                frmStudents = new FrmStudents(_classService, _studentService, _currentMode);
+                frmStudents.MdiParent = this;
+                frmStudents.Show();
             }
             else
             {
-                ShowStudentsForm();
-                frmStudents.ShowAddView();
-            }
-        }
-
-        private void UpdateButton_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            if (frmStudents != null && !frmStudents.IsDisposed)
-            {
-                frmStudents.ShowAddView();
                 frmStudents.BringToFront();
             }
-            else
-            {
-                ShowStudentsForm();
-                frmStudents.ShowAddView();
-            }
-        }
-
-        private void barButtonItem10_ItemClick(object sender, ItemClickEventArgs e)
-        {
-
         }
     }
 }

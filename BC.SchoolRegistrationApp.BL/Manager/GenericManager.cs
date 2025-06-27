@@ -4,6 +4,7 @@ using BC.SchoolRegistrationApp.Entity.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace BC.SchoolRegistrationApp.BL.Manager
             _uow.SaveChanges();
         }
 
-        public List<T> GetAll()=> _uow.GetRepository<T>().GetAll();
+        public List<T> GetAll(Expression<Func<T, bool>> filter = null) => _uow.GetRepository<T>().GetAll(filter);
         public T? GetById(int id)=> _uow.GetRepository<T>().GetById(id);
 
         public void Update(T entity)
