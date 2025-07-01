@@ -33,8 +33,8 @@
             ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
-            barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
-            barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
+            studentsButton = new DevExpress.XtraBars.BarButtonItem();
+            teachersButton = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem5 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem6 = new DevExpress.XtraBars.BarButtonItem();
             barButtonItem7 = new DevExpress.XtraBars.BarButtonItem();
@@ -57,7 +57,7 @@
             // ribbon
             // 
             ribbon.ExpandCollapseItem.Id = 0;
-            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, ribbon.SearchEditItem, barButtonItem1, barButtonItem2, barButtonItem3, barButtonItem4, barButtonItem5, barButtonItem6, barButtonItem7, AddButton, UpdateButton, DeleteButton, barButtonItem11, barButtonItem12, barButtonItem13 });
+            ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, ribbon.SearchEditItem, barButtonItem1, barButtonItem2, studentsButton, teachersButton, barButtonItem5, barButtonItem6, barButtonItem7, AddButton, UpdateButton, DeleteButton, barButtonItem11, barButtonItem12, barButtonItem13 });
             ribbon.Location = new System.Drawing.Point(0, 0);
             ribbon.MaxItemId = 15;
             ribbon.Name = "ribbon";
@@ -80,23 +80,24 @@
             barButtonItem2.Name = "barButtonItem2";
             barButtonItem2.ItemClick += barButtonItem2_ItemClick;
             // 
-            // barButtonItem3
+            // studentsButton
             // 
-            barButtonItem3.AccessibleDescription = "ST";
-            barButtonItem3.Caption = "STUDENTS";
-            barButtonItem3.Id = 3;
-            barButtonItem3.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barButtonItem3.ImageOptions.Image");
-            barButtonItem3.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem3.ImageOptions.LargeImage");
-            barButtonItem3.Name = "barButtonItem3";
-            barButtonItem3.ItemClick += barButtonItem3_ItemClick;
+            studentsButton.AccessibleDescription = "ST";
+            studentsButton.Caption = "STUDENTS";
+            studentsButton.Id = 3;
+            studentsButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("studentsButton.ImageOptions.Image");
+            studentsButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("studentsButton.ImageOptions.LargeImage");
+            studentsButton.Name = "studentsButton";
+            studentsButton.ItemClick += studentsButton_ItemClick;
             // 
-            // barButtonItem4
+            // teachersButton
             // 
-            barButtonItem4.Caption = "TEACHERS";
-            barButtonItem4.Id = 4;
-            barButtonItem4.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("barButtonItem4.ImageOptions.Image");
-            barButtonItem4.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("barButtonItem4.ImageOptions.LargeImage");
-            barButtonItem4.Name = "barButtonItem4";
+            teachersButton.Caption = "TEACHERS";
+            teachersButton.Id = 4;
+            teachersButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("teachersButton.ImageOptions.Image");
+            teachersButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("teachersButton.ImageOptions.LargeImage");
+            teachersButton.Name = "teachersButton";
+            teachersButton.ItemClick += teachersButton_ItemClick;
             // 
             // barButtonItem5
             // 
@@ -181,8 +182,8 @@
             // 
             ribbonPageGroup1.AllowTextClipping = false;
             ribbonPageGroup1.ItemLinks.Add(barButtonItem2);
-            ribbonPageGroup1.ItemLinks.Add(barButtonItem3, true);
-            ribbonPageGroup1.ItemLinks.Add(barButtonItem4, true);
+            ribbonPageGroup1.ItemLinks.Add(studentsButton, true);
+            ribbonPageGroup1.ItemLinks.Add(teachersButton, true);
             ribbonPageGroup1.ItemLinks.Add(barButtonItem5, true);
             ribbonPageGroup1.ItemLinks.Add(barButtonItem6, true);
             ribbonPageGroup1.ItemLinks.Add(barButtonItem7, true);
@@ -240,8 +241,8 @@
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem2;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem4;
+        private DevExpress.XtraBars.BarButtonItem studentsButton;
+        private DevExpress.XtraBars.BarButtonItem teachersButton;
         private DevExpress.XtraBars.BarButtonItem barButtonItem5;
         private DevExpress.XtraBars.BarButtonItem barButtonItem6;
         private DevExpress.XtraBars.BarButtonItem barButtonItem7;

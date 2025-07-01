@@ -11,31 +11,19 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
 {
     public static class FormHelper
     {
-        public static void ClearInputs(Control container)
+        public static T ShowForm<T>(ref T formInstance, Func<T> createForm, Form mdiParent) where T : Form
         {
-            foreach (Control control in container.Controls)
+            if(formInstance==null || formInstance.IsDisposed)
             {
-                if (control is TextEdit textEdit)
-                    textEdit.Text = string.Empty;
-
-                else if (control is ComboBoxEdit comboBoxEdit)
-                    comboBoxEdit.SelectedIndex = -1;
-
-                else if (control is ImageEdit imageEdit)
-                    imageEdit.Image = null;
-            }
-        }
-        public static bool HasEmptyFields(string name, string surname, string number, object _class)
-        {
-            string classStr = _class?.ToString();
-
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname) || string.IsNullOrWhiteSpace(number) || string.IsNullOrWhiteSpace(classStr))
-            {
-                MessageBox.Show("Please fill in the blank fields.");
-                return false;
+                formInstance= createForm();
+                formInstance.MdiParent = mdiParent;
+                formInstance.Show();
             }
             else
-                return true;
+                formInstance.BringToFront();
+
+            return formInstance;
         }
+
     }
 }

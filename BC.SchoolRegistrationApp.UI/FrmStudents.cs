@@ -38,32 +38,24 @@ namespace BC.SchoolRegistrationApp.UI
 
         private FormMode _currentMode;
         private Student selectedStudent = null;
-        Home home;
+        private Home home;
 
-        public FrmStudents(IClassService classService, IStudentService studentService, FormMode currentMode)
+        public FrmStudents(IClassService classService, IStudentService studentService)
         {
             InitializeComponent();
             _classService = classService;
             _studentService = studentService;
-            _currentMode = currentMode;
         }
 
         private void FrmStudents_Load(object sender, EventArgs e)
         {
             ResetView();
-
-            var classNames = _classService.GetClassNames();
-            ClassForList.Properties.Items.Clear();
-            ClassForList.Properties.Items.AddRange(classNames);
-            ClassForAdd.Properties.Items.Clear();
-            ClassForAdd.Properties.Items.AddRange(classNames);
-            var students = _studentService.GetAll();
-            StudentsGrid.DataSource = students;
+            LoadClassList();
+            StudentsGrid.DataSource = _studentService.GetAll();
         }
-
         private void ClassForList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ShowClassStudents(ClassForList.SelectedItem.ToString(),StudentsGrid);
+            ShowClassStudents(ClassForList.SelectedItem.ToString(), StudentsGrid);
         }
         private void Save_Click(object sender, EventArgs e)
         {
@@ -71,8 +63,8 @@ namespace BC.SchoolRegistrationApp.UI
             {
                 if (_currentMode == FormMode.Add)
                 {
-                    if (!FormHelper.HasEmptyFields(textEdit1.Text, textEdit2.Text, textEdit3.Text, ClassForAdd.SelectedItem))
-                        { return; }
+                    if (!ToolEditHelper.HasEmptyFields(textEdit1.Text, textEdit2.Text, textEdit3.Text, ClassForAdd.SelectedItem))
+                    { return; }
                     else
                     {
                         var resultAdd = AddStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, ClassForAdd.SelectedItem.ToString());
@@ -89,10 +81,10 @@ namespace BC.SchoolRegistrationApp.UI
                     }
 
                     var resultUpdate = UpdateStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, ClassForAdd.SelectedItem.ToString(), selectedStudent);
-                    if (resultUpdate) 
+                    if (resultUpdate)
                         MessageBox.Show("Student updated successfully.");
-
                 }
+
 
             }
             catch (Exception ex)
@@ -100,54 +92,6 @@ namespace BC.SchoolRegistrationApp.UI
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
-        private bool AddStudent(string name, string surname, string number, Image photograph, string _class)
-        {
-            try
-            {
-                string base64Photo = ImageHelper.ToBase64(photograph);
-                int selectedClassId = _classService.GetIDByName(_class);
-                var student = new Student()
-                {
-                    Name = name,
-                    Surname = surname,
-                    Number = number,
-                    Photograph = base64Photo,
-                    ClassID = selectedClassId
-                };
-                _studentService.Add(student);
-                FormHelper.ClearInputs(TextGroup);
-                ShowClassStudents(_class, AddUpdateDeleteGrid);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
-                MessageBox.Show("Student hasn't been added. Error: " + ex.Message + "\nInner exception: " + inner);
-                return false;
-            }
-        }
-
-        public void ShowTextGroupView()
-        {
-            TextGroup.Visible = true;
-            StudentsGrid.Visible = false;
-            ClassForList.Visible = false;
-            AddUpdateDeleteGrid.Visible = true;
-        }
-        public void ResetView()
-        {
-            TextGroup.Visible = false;
-            StudentsGrid.Visible = true;
-            ClassForList.Visible = true;
-            AddUpdateDeleteGrid.Visible = false;
-        }
-        public void ShowClassStudents(string selectedClass, GridControl grid)
-        {
-            var classStudents = _studentService.GetStudentsByClassName(selectedClass);
-            grid.DataSource = classStudents;
-        }
-
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textEdit3.Text))
@@ -169,6 +113,71 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit3.Text = selectedStudent.Number;
             imageEdit1.Image = ImageHelper.FromBase64(selectedStudent.Photograph);
             ClassForAdd.SelectedItem = _classService.GetById(selectedStudent.ClassID).Name;
+            AddUpdateDeleteGrid.DataSource = new List<Student> { selectedStudent };
+        }
+        private void AddUpdateDeleteGrid_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                var gridView = AddUpdateDeleteGrid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
+                if (gridView == null)
+                    return;
+                var student = gridView.GetFocusedRow() as Student;
+                if (student == null)
+                    throw new Exception("No student selected");
+                if (_currentMode == FormMode.Delete) 
+                {
+                    var confirm = MessageBox.Show( $"Are you sure you want to delete {student.Name} {student.Surname}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+
+                    if (confirm == DialogResult.Yes)
+                    {
+                        _studentService.Delete(student);
+                        MessageBox.Show("Student deleted successfully.");
+                        ShowClassStudents(_classService.GetById(student.ClassID).Name, AddUpdateDeleteGrid);
+                    }
+                }
+                else if (_currentMode == FormMode.Update)
+                {
+                    selectedStudent = student;
+                    textEdit1.Text = student.Name;
+                    textEdit2.Text = student.Surname;
+                    textEdit3.Text = student.Number;
+                    imageEdit1.Image = ImageHelper.FromBase64(student.Photograph);
+                    ClassForAdd.SelectedItem = _classService.GetById(student.ClassID).Name;
+                    AddUpdateDeleteGrid.DataSource = new List<Student> { student };
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool AddStudent(string name, string surname, string number, Image photograph, string _class)
+        {
+            try
+            {
+                string base64Photo = ImageHelper.ToBase64(photograph);
+                int selectedClassId = _classService.GetIDByName(_class);
+                var student = new Student()
+                {
+                    Name = name,
+                    Surname = surname,
+                    Number = number,
+                    Photograph = base64Photo,
+                    ClassID = selectedClassId
+                };
+                _studentService.Add(student);
+                ToolEditHelper.ClearInputs(TextGroup);
+                ShowClassStudents(_class, AddUpdateDeleteGrid);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+                MessageBox.Show("Student hasn't been added. Error: " + ex.Message + "\nInner exception: " + inner);
+                return false;
+            }
         }
         private bool UpdateStudent(string name, string surname, string number, Image photograph, string _class, Student student)
         {
@@ -180,7 +189,7 @@ namespace BC.SchoolRegistrationApp.UI
                 student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
                 student.ClassID = string.IsNullOrWhiteSpace(_class) ? student.ClassID : _classService.GetIDByName(_class);
                 _studentService.Update(student);
-                FormHelper.ClearInputs(TextGroup);
+                ToolEditHelper.ClearInputs(TextGroup);
                 ShowClassStudents(_class, AddUpdateDeleteGrid);
                 return true;
             }
@@ -190,6 +199,48 @@ namespace BC.SchoolRegistrationApp.UI
                 MessageBox.Show("Student hasn't been added. Error: " + ex.Message + "\nInner exception: " + inner);
                 return false;
             }
+        }
+        public void LoadClassList()
+        {
+            ClassForList.Properties.Items.Clear();
+            ClassForAdd.Properties.Items.Clear();
+            var classNames = _classService.GetClassNames();
+            ClassForList.Properties.Items.AddRange(classNames);
+            ClassForAdd.Properties.Items.AddRange(classNames);
+        }
+        public void SetModeView()
+        {
+            ToolEditHelper.ClearInputs(TextGroup);
+            AddUpdateDeleteGrid.DataSource = null;
+            TextGroup.Visible = true;
+            StudentsGrid.Visible = false;
+            ClassForList.Visible = false;
+            AddUpdateDeleteGrid.Visible = true;
+            searchButton.Visible = _currentMode == FormMode.Add ? false : true;
+            bool editView = _currentMode != FormMode.Delete;
+            labelControl5.Visible = editView;
+            ClassForAdd.Visible = editView;
+            labelControl1.Visible = editView;
+            textEdit1.Visible = editView;
+            labelControl2.Visible = editView;
+            textEdit2.Visible = editView;
+            labelControl3.Visible = true;
+            textEdit3.Visible = true;
+            labelControl4.Visible = editView;
+            imageEdit1.Visible = editView;
+        }
+        public void ResetView()
+        {
+            TextGroup.Visible = false;
+            StudentsGrid.Visible = true;
+            ClassForList.Visible = true;
+            AddUpdateDeleteGrid.Visible = false;
+            searchButton.Visible = false;
+        }
+        public void ShowClassStudents(string selectedClass, GridControl grid)
+        {
+            var classStudents = _studentService.GetStudentsByClassName(selectedClass);
+            grid.DataSource = classStudents;
         }
 
     }

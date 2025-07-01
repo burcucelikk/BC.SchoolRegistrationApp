@@ -46,6 +46,8 @@ namespace BC.SchoolRegistrationApp.UI
                     services.AddDALDependencies(connectionString);
                     services.AddScoped<IClassService,ClassManager>();
                     services.AddScoped<IStudentService, StudentManager>();
+                    services.AddScoped<ILessonService, LessonManager>();
+                    services.AddScoped<ITeacherService, TeacherManager>();
                     services.AddScoped<Home>();
                     services.AddScoped<FrmStudents>();
                 });
