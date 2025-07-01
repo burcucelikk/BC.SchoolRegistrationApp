@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Service
 {
-    public interface IGenericService<T> where T: class, IEntity
+    public interface IGenericService<T, TDto> where T: class, IEntity
+        where TDto : class
     {
         void Add(T entitiy);
         void Update(T entitiy);

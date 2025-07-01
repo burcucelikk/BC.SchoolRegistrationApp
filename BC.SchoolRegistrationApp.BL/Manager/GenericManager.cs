@@ -1,4 +1,5 @@
-﻿using BC.SchoolRegistrationApp.BL.Service;
+﻿using AutoMapper;
+using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.Entity.Abstracts;
 using System;
@@ -10,14 +11,17 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class GenericManager<T> :IGenericService<T> where T: class, IEntity
+    public class GenericManager<T, TDto> :IGenericService<T, TDto> where T: class, IEntity
+        where TDto : class
     {
-        protected IUow _uow;
-        public GenericManager(IUow uow)
+        private readonly IMapper _mapper;
+        protected readonly IUow _uow;
+        public GenericManager(IUow uow, IMapper mapper)
         {
             _uow = uow;
+            _mapper = mapper;
         }
-        
+
         public void Add(T entity)
         {
             _uow.GetRepository<T>().Add(entity);

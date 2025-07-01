@@ -15,11 +15,5 @@ namespace BC.SchoolRegistrationApp.DAL.Concrete
         public StudentRepository(AppDbContext dbContext) : base(dbContext)
         {
         }
-        public List<Student> GetStudentsByClassName(string className)
-        {
-            return _dbSet.Include(s => s.Class)
-                   .Where(s => s.Class.Name == className)
-                   .ToList();
-        }
     }
 }

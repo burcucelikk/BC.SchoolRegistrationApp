@@ -11,6 +11,7 @@ using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.BL.Manager;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
+using BC.SchoolRegistrationApp.BL.Extensions;
 
 namespace BC.SchoolRegistrationApp.UI
 {
@@ -44,10 +45,7 @@ namespace BC.SchoolRegistrationApp.UI
                 })
                 .ConfigureServices((context, services) => {
                     services.AddDALDependencies(connectionString);
-                    services.AddScoped<IClassService,ClassManager>();
-                    services.AddScoped<IStudentService, StudentManager>();
-                    services.AddScoped<ILessonService, LessonManager>();
-                    services.AddScoped<ITeacherService, TeacherManager>();
+                    services.AddBLDependencies(connectionString);
                     services.AddScoped<Home>();
                     services.AddScoped<FrmStudents>();
                 });

@@ -11,6 +11,7 @@ namespace BC.SchoolRegistrationApp.DAL.Abstract
     {
         IClassRepository classRepository { get; }
         IStudentRepository studentRepository { get; }
+        ITeacherRepository teacherRepository { get; }
 
         void SaveChanges();
         IGenericRepository<T> GetRepository<T>() where T: class, IEntity;

@@ -63,10 +63,10 @@
             // 
             // StudentsGrid
             // 
-            StudentsGrid.Location = new System.Drawing.Point(3, 1);
+            StudentsGrid.Location = new System.Drawing.Point(3, 3);
             StudentsGrid.MainView = gridView1;
             StudentsGrid.Name = "StudentsGrid";
-            StudentsGrid.Size = new System.Drawing.Size(864, 369);
+            StudentsGrid.Size = new System.Drawing.Size(864, 367);
             StudentsGrid.TabIndex = 8;
             StudentsGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -79,7 +79,7 @@
             // 
             // ClassForList
             // 
-            ClassForList.Location = new System.Drawing.Point(740, -1);
+            ClassForList.Location = new System.Drawing.Point(736, 7);
             ClassForList.Name = "ClassForList";
             ClassForList.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             ClassForList.Size = new System.Drawing.Size(127, 22);
@@ -100,9 +100,9 @@
             TextGroup.Controls.Add(textEdit3);
             TextGroup.Controls.Add(textEdit2);
             TextGroup.Controls.Add(textEdit1);
-            TextGroup.Location = new System.Drawing.Point(3, 1);
+            TextGroup.Location = new System.Drawing.Point(3, 3);
             TextGroup.Name = "TextGroup";
-            TextGroup.Size = new System.Drawing.Size(395, 373);
+            TextGroup.Size = new System.Drawing.Size(395, 368);
             TextGroup.TabIndex = 10;
             // 
             // searchButton
@@ -208,10 +208,10 @@
             // 
             // AddUpdateDeleteGrid
             // 
-            AddUpdateDeleteGrid.Location = new System.Drawing.Point(396, 1);
+            AddUpdateDeleteGrid.Location = new System.Drawing.Point(396, 3);
             AddUpdateDeleteGrid.MainView = gridView2;
             AddUpdateDeleteGrid.Name = "AddUpdateDeleteGrid";
-            AddUpdateDeleteGrid.Size = new System.Drawing.Size(471, 373);
+            AddUpdateDeleteGrid.Size = new System.Drawing.Size(471, 368);
             AddUpdateDeleteGrid.TabIndex = 11;
             AddUpdateDeleteGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView2 });
             AddUpdateDeleteGrid.DoubleClick += AddUpdateDeleteGrid_DoubleClick;

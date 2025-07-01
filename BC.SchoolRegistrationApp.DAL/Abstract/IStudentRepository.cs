@@ -10,6 +10,5 @@ namespace BC.SchoolRegistrationApp.DAL.Abstract
 {
     public interface IStudentRepository: IGenericRepository<Student>
     {
-        List<Student> GetStudentsByClassName(string className);
     }
 }

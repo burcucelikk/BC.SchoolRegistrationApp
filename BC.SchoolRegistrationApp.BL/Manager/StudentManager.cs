@@ -1,6 +1,9 @@
-﻿using BC.SchoolRegistrationApp.BL.Service;
+﻿using AutoMapper;
+using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
+using BC.SchoolRegistrationApp.Dto.Concrete;
 using BC.SchoolRegistrationApp.Entity.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +13,25 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class StudentManager : GenericManager<Student>, IStudentService
+    public class StudentManager : GenericManager<Student,StudentDto>, IStudentService
     {
-        public StudentManager(IUow uow) : base(uow)
+        private readonly IStudentRepository _studentRepository;
+        public StudentManager(IUow uow, IMapper mapper) : base(uow, mapper)
         {
-          
+            _studentRepository = uow.studentRepository;
         }
-        public List<Student> GetStudentsByClassName(string className)
+        public List<StudentDto> GetStudentsWithClassName(string className)
         {
-            return _uow.studentRepository.GetStudentsByClassName(className);
+            return _studentRepository.GetQueryable().Include(x=>x.Class).Where(x=>x.Class.Name==className).Select(x=> new StudentDto
+            {
+                Id= x.ID,
+                Name= x.Name,
+                Surname= x.Surname,
+                ClassName= x.Class.Name,
+                Photograph= x.Photograph,
+                Number= x.Number,
+                IsPassed= x.IsPassed
+            }).ToList();
         }
     }
 }

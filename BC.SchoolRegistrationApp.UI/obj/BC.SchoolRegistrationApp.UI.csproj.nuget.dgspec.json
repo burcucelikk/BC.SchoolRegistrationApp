@@ -37,6 +37,9 @@
             "projectReferences": {
               "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.DAL\\BC.SchoolRegistrationApp.DAL.csproj": {
                 "projectPath": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.DAL\\BC.SchoolRegistrationApp.DAL.csproj"
+              },
+              "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj": {
+                "projectPath": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj"
               }
             }
           }
@@ -56,6 +59,16 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -144,6 +157,78 @@
               "version": "[7.0.20, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj",
+        "projectName": "BC.SchoolRegistrationApp.Dto",
+        "projectPath": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj",
+        "packagesPath": "C:\\Users\\burcu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\burcu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj": {
+                "projectPath": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Entity\\BC.SchoolRegistrationApp.Entity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
           "imports": [
             "net461",
             "net462",

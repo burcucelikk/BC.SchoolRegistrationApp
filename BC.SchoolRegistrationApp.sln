@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BC.SchoolRegistrationApp.En
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BC.SchoolRegistrationApp.UI", "BC.SchoolRegistrationApp.UI\BC.SchoolRegistrationApp.UI.csproj", "{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BC.SchoolRegistrationApp.Dto", "BC.SchoolRegistrationApp.Dto\BC.SchoolRegistrationApp.Dto.csproj", "{77D3B7C0-761F-4908-A92B-0663C1120A2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D3B7C0-761F-4908-A92B-0663C1120A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D3B7C0-761F-4908-A92B-0663C1120A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D3B7C0-761F-4908-A92B-0663C1120A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D3B7C0-761F-4908-A92B-0663C1120A2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
