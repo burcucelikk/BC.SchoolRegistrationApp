@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmStudents));
             StudentsGrid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            ClassForList = new DevExpress.XtraEditors.ComboBoxEdit();
             TextGroup = new DevExpress.XtraEditors.GroupControl();
             searchButton = new DevExpress.XtraEditors.SimpleButton();
             imageEdit1 = new DevExpress.XtraEditors.ImageEdit();
@@ -45,11 +44,11 @@
             textEdit3 = new DevExpress.XtraEditors.TextEdit();
             textEdit2 = new DevExpress.XtraEditors.TextEdit();
             textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            ClassForList = new DevExpress.XtraEditors.ComboBoxEdit();
             AddUpdateDeleteGrid = new DevExpress.XtraGrid.GridControl();
             gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)StudentsGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)ClassForList.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TextGroup).BeginInit();
             TextGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)imageEdit1.Properties).BeginInit();
@@ -57,16 +56,17 @@
             ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ClassForList.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)AddUpdateDeleteGrid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView2).BeginInit();
             SuspendLayout();
             // 
             // StudentsGrid
             // 
-            StudentsGrid.Location = new System.Drawing.Point(3, 3);
+            StudentsGrid.Location = new System.Drawing.Point(3, 5);
             StudentsGrid.MainView = gridView1;
             StudentsGrid.Name = "StudentsGrid";
-            StudentsGrid.Size = new System.Drawing.Size(864, 367);
+            StudentsGrid.Size = new System.Drawing.Size(748, 362);
             StudentsGrid.TabIndex = 8;
             StudentsGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
             // 
@@ -76,15 +76,6 @@
             gridView1.Name = "gridView1";
             gridView1.OptionsBehavior.Editable = false;
             gridView1.OptionsView.ShowGroupPanel = false;
-            // 
-            // ClassForList
-            // 
-            ClassForList.Location = new System.Drawing.Point(736, 7);
-            ClassForList.Name = "ClassForList";
-            ClassForList.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
-            ClassForList.Size = new System.Drawing.Size(127, 22);
-            ClassForList.TabIndex = 9;
-            ClassForList.SelectedIndexChanged += ClassForList_SelectedIndexChanged;
             // 
             // TextGroup
             // 
@@ -100,9 +91,9 @@
             TextGroup.Controls.Add(textEdit3);
             TextGroup.Controls.Add(textEdit2);
             TextGroup.Controls.Add(textEdit1);
-            TextGroup.Location = new System.Drawing.Point(3, 3);
+            TextGroup.Location = new System.Drawing.Point(3, 4);
             TextGroup.Name = "TextGroup";
-            TextGroup.Size = new System.Drawing.Size(395, 368);
+            TextGroup.Size = new System.Drawing.Size(395, 361);
             TextGroup.TabIndex = 10;
             // 
             // searchButton
@@ -206,12 +197,21 @@
             textEdit1.Size = new System.Drawing.Size(156, 22);
             textEdit1.TabIndex = 0;
             // 
+            // ClassForList
+            // 
+            ClassForList.Location = new System.Drawing.Point(757, 6);
+            ClassForList.Name = "ClassForList";
+            ClassForList.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            ClassForList.Size = new System.Drawing.Size(105, 22);
+            ClassForList.TabIndex = 9;
+            ClassForList.SelectedIndexChanged += ClassForList_SelectedIndexChanged;
+            // 
             // AddUpdateDeleteGrid
             // 
             AddUpdateDeleteGrid.Location = new System.Drawing.Point(396, 3);
             AddUpdateDeleteGrid.MainView = gridView2;
             AddUpdateDeleteGrid.Name = "AddUpdateDeleteGrid";
-            AddUpdateDeleteGrid.Size = new System.Drawing.Size(471, 368);
+            AddUpdateDeleteGrid.Size = new System.Drawing.Size(471, 363);
             AddUpdateDeleteGrid.TabIndex = 11;
             AddUpdateDeleteGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView2 });
             AddUpdateDeleteGrid.DoubleClick += AddUpdateDeleteGrid_DoubleClick;
@@ -238,7 +238,6 @@
             Load += FrmStudents_Load;
             ((System.ComponentModel.ISupportInitialize)StudentsGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)ClassForList.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)TextGroup).EndInit();
             TextGroup.ResumeLayout(false);
             TextGroup.PerformLayout();
@@ -247,6 +246,7 @@
             ((System.ComponentModel.ISupportInitialize)textEdit3.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)textEdit2.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)textEdit1.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ClassForList.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)AddUpdateDeleteGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView2).EndInit();
             ResumeLayout(false);
@@ -256,7 +256,6 @@
 
         private DevExpress.XtraGrid.GridControl StudentsGrid;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
-        private DevExpress.XtraEditors.ComboBoxEdit ClassForList;
         private DevExpress.XtraEditors.GroupControl TextGroup;
         private DevExpress.XtraEditors.ComboBoxEdit ClassForAdd;
         private DevExpress.XtraEditors.TextEdit textEdit3;
@@ -272,5 +271,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ImageEdit imageEdit1;
         private DevExpress.XtraEditors.SimpleButton searchButton;
+        private DevExpress.XtraEditors.ComboBoxEdit ClassForList;
     }
 }

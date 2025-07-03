@@ -26,6 +26,10 @@ namespace BC.SchoolRegistrationApp.BL.Extensions
             services.AddScoped<IStudentService, StudentManager>();
             services.AddScoped<ILessonService, LessonManager>();
             services.AddScoped<ITeacherService, TeacherManager>();
+            services.AddScoped<IExamService, ExamManager>();
+            services.AddScoped<IGradeService, GradeManager>();
+            services.AddScoped<IClassLessonService, ClassLessonManager>();
+            services.AddScoped<ILessonScheduleService, LessonScheduleManager>();
             return services;
         }
     }

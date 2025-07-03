@@ -10,9 +10,9 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete
 {
     public class ClassDto :IDto
     {
-        //public int Id { get; set; }
-        //public string Name { get; set; }
-        //public List<StudentListDto> Students { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<StudentDto> Students { get; set; }
         //public List<LessonDto> Lessons { get; set; }
     }
 }

@@ -205,7 +205,7 @@
             // 
             // ribbonStatusBar
             // 
-            ribbonStatusBar.Location = new System.Drawing.Point(0, 569);
+            ribbonStatusBar.Location = new System.Drawing.Point(0, 594);
             ribbonStatusBar.Name = "ribbonStatusBar";
             ribbonStatusBar.Ribbon = ribbon;
             ribbonStatusBar.Size = new System.Drawing.Size(868, 30);
@@ -218,7 +218,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(868, 599);
+            ClientSize = new System.Drawing.Size(868, 624);
             Controls.Add(ribbonStatusBar);
             Controls.Add(ribbon);
             IsMdiContainer = true;

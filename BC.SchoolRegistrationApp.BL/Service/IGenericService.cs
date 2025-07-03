@@ -11,10 +11,11 @@ namespace BC.SchoolRegistrationApp.BL.Service
     public interface IGenericService<T, TDto> where T: class, IEntity
         where TDto : class
     {
-        void Add(T entitiy);
-        void Update(T entitiy);
-        void Delete(T entitiy);
-        T? GetById(int id);
-        List<T> GetAll(Expression<Func<T, bool>> filter = null);
+        void Add(TDto dto);
+        void Update(TDto dto);
+        void Delete(TDto dto);
+        TDto? GetById(int id);
+        TDto? Get(Expression<Func<T, bool>> predicate);
+        List<TDto> GetAll(Expression<Func<T, bool>> filter = null);
     }
 }

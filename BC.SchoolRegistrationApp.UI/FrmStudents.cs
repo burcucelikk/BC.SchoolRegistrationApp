@@ -1,5 +1,6 @@
 ﻿using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Context;
+using BC.SchoolRegistrationApp.Dto.Concrete;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using BC.SchoolRegistrationApp.UI.Helpers;
 using DevExpress.CodeParser;
@@ -37,7 +38,7 @@ namespace BC.SchoolRegistrationApp.UI
         private readonly IStudentService _studentService;
 
         private FormMode _currentMode;
-        private Student selectedStudent = null;
+        private StudentDto selectedStudent = null;
         private Home home;
 
         public FrmStudents(IClassService classService, IStudentService studentService)
@@ -63,7 +64,7 @@ namespace BC.SchoolRegistrationApp.UI
             {
                 if (_currentMode == FormMode.Add)
                 {
-                    if (!ToolEditHelper.HasEmptyFields(textEdit1.Text, textEdit2.Text, textEdit3.Text, ClassForAdd.SelectedItem))
+                    if (!EditToolHelper.HasEmptyFields(textEdit1.Text, textEdit2.Text, textEdit3.Text, ClassForAdd.SelectedItem))
                     { return; }
                     else
                     {
@@ -100,7 +101,7 @@ namespace BC.SchoolRegistrationApp.UI
                 return;
             }
 
-            selectedStudent = _studentService.GetAll(x => x.Number == textEdit3.Text).FirstOrDefault();
+            selectedStudent = _studentService.Get(x => x.Number == textEdit3.Text);
 
             if (selectedStudent == null)
             {
@@ -112,8 +113,8 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit2.Text = selectedStudent.Surname;
             textEdit3.Text = selectedStudent.Number;
             imageEdit1.Image = ImageHelper.FromBase64(selectedStudent.Photograph);
-            ClassForAdd.SelectedItem = _classService.GetById(selectedStudent.ClassID).Name;
-            AddUpdateDeleteGrid.DataSource = new List<Student> { selectedStudent };
+            ClassForAdd.SelectedItem = selectedStudent.ClassName;
+            AddUpdateDeleteGrid.DataSource = new List<StudentDto> { selectedStudent };
         }
         private void AddUpdateDeleteGrid_DoubleClick(object sender, EventArgs e)
         {
@@ -122,7 +123,7 @@ namespace BC.SchoolRegistrationApp.UI
                 var gridView = AddUpdateDeleteGrid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
                 if (gridView == null)
                     return;
-                var student = gridView.GetFocusedRow() as Student;
+                var student = gridView.GetFocusedRow() as StudentDto;
                 if (student == null)
                     throw new Exception("No student selected");
                 if (_currentMode == FormMode.Delete) 
@@ -133,7 +134,7 @@ namespace BC.SchoolRegistrationApp.UI
                     {
                         _studentService.Delete(student);
                         MessageBox.Show("Student deleted successfully.");
-                        ShowClassStudents(_classService.GetById(student.ClassID).Name, AddUpdateDeleteGrid);
+                        ShowClassStudents(student.ClassName, AddUpdateDeleteGrid);
                     }
                 }
                 else if (_currentMode == FormMode.Update)
@@ -143,8 +144,8 @@ namespace BC.SchoolRegistrationApp.UI
                     textEdit2.Text = student.Surname;
                     textEdit3.Text = student.Number;
                     imageEdit1.Image = ImageHelper.FromBase64(student.Photograph);
-                    ClassForAdd.SelectedItem = _classService.GetById(student.ClassID).Name;
-                    AddUpdateDeleteGrid.DataSource = new List<Student> { student };
+                    ClassForAdd.SelectedItem = student.ClassName;
+                    AddUpdateDeleteGrid.DataSource = new List<StudentDto> { student };
                 }
             }
             catch (Exception ex)
@@ -158,17 +159,16 @@ namespace BC.SchoolRegistrationApp.UI
             try
             {
                 string base64Photo = ImageHelper.ToBase64(photograph);
-                int selectedClassId = _classService.GetIDByName(_class);
-                var student = new Student()
+                var student = new StudentDto()
                 {
                     Name = name,
                     Surname = surname,
                     Number = number,
                     Photograph = base64Photo,
-                    ClassID = selectedClassId
+                    ClassName = _class
                 };
                 _studentService.Add(student);
-                ToolEditHelper.ClearInputs(TextGroup);
+                EditToolHelper.ClearInputs(TextGroup);
                 ShowClassStudents(_class, AddUpdateDeleteGrid);
                 return true;
             }
@@ -179,7 +179,7 @@ namespace BC.SchoolRegistrationApp.UI
                 return false;
             }
         }
-        private bool UpdateStudent(string name, string surname, string number, Image photograph, string _class, Student student)
+        private bool UpdateStudent(string name, string surname, string number, Image photograph, string _class, StudentDto student)
         {
             try
             {
@@ -187,9 +187,9 @@ namespace BC.SchoolRegistrationApp.UI
                 student.Surname = string.IsNullOrWhiteSpace(surname) ? student.Surname : surname;
                 student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
                 student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
-                student.ClassID = string.IsNullOrWhiteSpace(_class) ? student.ClassID : _classService.GetIDByName(_class);
+                student.ClassName = string.IsNullOrWhiteSpace(_class) ? student.ClassName : _class;
                 _studentService.Update(student);
-                ToolEditHelper.ClearInputs(TextGroup);
+                EditToolHelper.ClearInputs(TextGroup);
                 ShowClassStudents(_class, AddUpdateDeleteGrid);
                 return true;
             }
@@ -210,7 +210,7 @@ namespace BC.SchoolRegistrationApp.UI
         }
         public void SetModeView()
         {
-            ToolEditHelper.ClearInputs(TextGroup);
+            EditToolHelper.ClearInputs(TextGroup);
             AddUpdateDeleteGrid.DataSource = null;
             TextGroup.Visible = true;
             StudentsGrid.Visible = false;
@@ -237,11 +237,11 @@ namespace BC.SchoolRegistrationApp.UI
             AddUpdateDeleteGrid.Visible = false;
             searchButton.Visible = false;
         }
+
         public void ShowClassStudents(string selectedClass, GridControl grid)
         {
-            var classStudents = _studentService.GetStudentsByClassName(selectedClass);
+            var classStudents = _studentService.GetAll(x=>x.Class.Name==selectedClass);
             grid.DataSource = classStudents;
         }
-
     }
 }

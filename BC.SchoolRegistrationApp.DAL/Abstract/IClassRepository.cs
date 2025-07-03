@@ -10,7 +10,5 @@ namespace BC.SchoolRegistrationApp.DAL.Abstract
 {
     public interface IClassRepository : IGenericRepository<Class>
     {
-        List<string> GetClassNames();
-        int GetIDByName(string className);
     }
 }

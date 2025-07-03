@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BC.SchoolRegistrationApp.UI.Helpers
 {
-    public static class ToolEditHelper
+    public static class EditToolHelper
     {
         public static void ClearInputs(Control container)
         {

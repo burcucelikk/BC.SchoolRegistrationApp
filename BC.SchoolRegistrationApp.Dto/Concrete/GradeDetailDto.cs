@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.Dto.Concrete
 {
-    public class GradeDto :IDto
+    public class GradeDetailDto :IDto
     {
-        //public int Id { get; set; }
-        //public string LessonName { get; set; }
-        //public string ExamType { get; set; }
-        //public double Score { get; set; }
+        public int Id { get; set; }
+        public string LessonName { get; set; }
+        public string ExamType { get; set; }
+        public double Score { get; set; }
     }
 }

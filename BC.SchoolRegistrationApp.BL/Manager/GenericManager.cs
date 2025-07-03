@@ -22,22 +22,37 @@ namespace BC.SchoolRegistrationApp.BL.Manager
             _mapper = mapper;
         }
 
-        public void Add(T entity)
+        public void Add(TDto dto)
         {
+            var entity = _mapper.Map<T>(dto);
             _uow.GetRepository<T>().Add(entity);
             _uow.SaveChanges();
         }
-        public void Delete(T entity) 
-        {
+        public void Delete(TDto dto) 
+        {   
+            var entity= _mapper.Map<T>(dto);
             _uow.GetRepository<T>().Delete(entity);
             _uow.SaveChanges();
         }
-
-        public List<T> GetAll(Expression<Func<T, bool>> filter = null) => _uow.GetRepository<T>().GetAll(filter);
-        public T? GetById(int id)=> _uow.GetRepository<T>().GetById(id);
-
-        public void Update(T entity)
+        public TDto? Get(Expression<Func<T, bool>> predicate)
         {
+            var entity = _uow.GetRepository<T>().Get(predicate);
+           return entity!= null ? _mapper.Map<TDto>(entity) : null;
+        }
+        public List<TDto> GetAll(Expression<Func<T, bool>> filter = null)
+        {
+            var entities = _uow.GetRepository<T>().GetAll(filter);
+            return _mapper.Map<List<TDto>>(entities);
+        }
+        public TDto? GetById(int id)
+        {
+            var entity = _uow.GetRepository<T>().GetById(id);
+            return _mapper.Map<TDto>(entity);
+        }
+
+        public void Update(TDto dto)
+        {
+            var entity = _mapper.Map<T>(dto);
             _uow.GetRepository<T>().Update(entity);
             _uow.SaveChanges();
         }

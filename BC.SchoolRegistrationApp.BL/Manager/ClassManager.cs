@@ -1,6 +1,8 @@
-﻿using BC.SchoolRegistrationApp.BL.Service;
+﻿using AutoMapper;
+using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.DAL.Concrete;
+using BC.SchoolRegistrationApp.Dto.Concrete;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,13 +13,18 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class ClassManager : GenericManager<Class>, IClassService
+    public class ClassManager : GenericManager<Class, ClassDto>, IClassService
     {
-        public ClassManager(IUow uow) : base(uow)
+        private readonly IClassRepository _classRepository;
+        public ClassManager(IUow uow, IMapper mapper) : base(uow, mapper)
         {
+            _classRepository = uow.classRepository;
         }
-        public List<string> GetClassNames()=> _uow.classRepository.GetClassNames();
-
-        public int GetIDByName(string className) => _uow.classRepository.GetIDByName(className);
+        public List<string> GetClassNames() => _classRepository.GetQueryable().Select(x => x.Name).ToList();
+        public int? GetClassIDByName(string className)
+        { 
+            var classEntity = _classRepository.GetQueryable().FirstOrDefault(x => x.Name == className);
+            return classEntity?.ID;
+        }
     }
 }

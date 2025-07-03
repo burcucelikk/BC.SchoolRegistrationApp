@@ -1,5 +1,7 @@
-﻿using BC.SchoolRegistrationApp.BL.Service;
+﻿using AutoMapper;
+using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
+using BC.SchoolRegistrationApp.Dto.Concrete;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class ExamManager : GenericManager<Exam>, IExamService
+    public class ExamManager : GenericManager<Exam,ExamDto>, IExamService
     {
-        public ExamManager(IUow uow) : base(uow)
+        public ExamManager(IUow uow, IMapper mapper) : base(uow, mapper)
         {
         }
     }
