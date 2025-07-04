@@ -14,7 +14,7 @@ namespace BC.SchoolRegistrationApp.BL.Manager
     public class GenericManager<T, TDto> :IGenericService<T, TDto> where T: class, IEntity
         where TDto : class
     {
-        private readonly IMapper _mapper;
+        protected readonly IMapper _mapper;
         protected readonly IUow _uow;
         public GenericManager(IUow uow, IMapper mapper)
         {
@@ -39,7 +39,7 @@ namespace BC.SchoolRegistrationApp.BL.Manager
             var entity = _uow.GetRepository<T>().Get(predicate);
            return entity!= null ? _mapper.Map<TDto>(entity) : null;
         }
-        public List<TDto> GetAll(Expression<Func<T, bool>> filter = null)
+        public virtual List<TDto> GetAll(Expression<Func<T, bool>> filter = null)
         {
             var entities = _uow.GetRepository<T>().GetAll(filter);
             return _mapper.Map<List<TDto>>(entities);
@@ -56,5 +56,6 @@ namespace BC.SchoolRegistrationApp.BL.Manager
             _uow.GetRepository<T>().Update(entity);
             _uow.SaveChanges();
         }
+
     }
 }

@@ -41,5 +41,15 @@ namespace BC.SchoolRegistrationApp.BL.Manager
         //}
 
         #endregion
+
+        public override List<TeacherDto> GetAll(Expression<Func<Teacher, bool>> filter = null)
+        {
+            IQueryable<Teacher> query = _teacherRepository.GetQueryable().Include(x=>x.Lesson);
+            if(filter != null)
+                query = query.Where(filter);
+
+            var entities = query.ToList();
+            return _mapper.Map<List<TeacherDto>>(entities);
+        }
     }
 }

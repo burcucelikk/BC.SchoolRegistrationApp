@@ -85,8 +85,6 @@ namespace BC.SchoolRegistrationApp.UI
                     if (resultUpdate)
                         MessageBox.Show("Student updated successfully.");
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -188,6 +186,7 @@ namespace BC.SchoolRegistrationApp.UI
                 student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
                 student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
                 student.ClassName = string.IsNullOrWhiteSpace(_class) ? student.ClassName : _class;
+                int? selectedId = _classService.GetClassIDByName(student.ClassName);
                 _studentService.Update(student);
                 EditToolHelper.ClearInputs(TextGroup);
                 ShowClassStudents(_class, AddUpdateDeleteGrid);

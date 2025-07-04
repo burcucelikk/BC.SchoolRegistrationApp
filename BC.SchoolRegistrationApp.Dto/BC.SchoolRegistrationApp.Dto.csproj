@@ -10,4 +10,8 @@
     <ProjectReference Include="..\BC.SchoolRegistrationApp.Entity\BC.SchoolRegistrationApp.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Concrete\Class\" />
+  </ItemGroup>
+
 </Project>
