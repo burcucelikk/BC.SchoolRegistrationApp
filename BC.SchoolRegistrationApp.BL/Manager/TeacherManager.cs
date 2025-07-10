@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
-using BC.SchoolRegistrationApp.Dto.Concrete;
+using BC.SchoolRegistrationApp.Dto.Concrete.Teacher;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Manager
 {
-    public class TeacherManager : GenericManager<Teacher, TeacherDto>, ITeacherService
+    public class TeacherManager : GenericManagerDto<Teacher, TeacherDto, TeacherAddDto, TeacherUpdateDto, TeacherListDto, TeacherDetailDto>, ITeacherService
     {
         private Dictionary<int, int> _teacherLessonHours = new();
         private Dictionary<int, int> _lessonHoursPerClass = new();
@@ -42,14 +42,14 @@ namespace BC.SchoolRegistrationApp.BL.Manager
 
         #endregion
 
-        public override List<TeacherDto> GetAll(Expression<Func<Teacher, bool>> filter = null)
-        {
-            IQueryable<Teacher> query = _teacherRepository.GetQueryable().Include(x=>x.Lesson);
-            if(filter != null)
-                query = query.Where(filter);
+        //public override List<TeacherDto> GetAll(Expression<Func<Teacher, bool>> filter = null)
+        //{
+        //    IQueryable<Teacher> query = _teacherRepository.GetQueryable().Include(x=>x.Lesson);
+        //    if(filter != null)
+        //        query = query.Where(filter);
 
-            var entities = query.ToList();
-            return _mapper.Map<List<TeacherDto>>(entities);
-        }
+        //    var entities = query.ToList();
+        //    return _mapper.Map<List<TeacherDto>>(entities);
+        //}
     }
 }

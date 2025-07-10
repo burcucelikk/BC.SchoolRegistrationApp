@@ -14,7 +14,6 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete.Student
         public string Number { get; set; }
         public string? Photograph { get; set; }
         public string ClassName { get; set; }
-        public int ClassId { get; set; }
 
     }
 }

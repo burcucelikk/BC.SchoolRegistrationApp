@@ -1,4 +1,4 @@
-﻿using BC.SchoolRegistrationApp.Dto.Concrete;
+﻿using BC.SchoolRegistrationApp.Dto.Concrete.Teacher;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Service
 {
-    public interface ITeacherService : IGenericService<Teacher, TeacherDto>
+    public interface ITeacherService : IGenericServiceDto<Teacher, TeacherDto, TeacherAddDto, TeacherUpdateDto, TeacherListDto, TeacherDetailDto>
     {
         //List<TeacherDto> GetAllTeachers(Expression<Func<Teacher, bool>> filter = null);
     }

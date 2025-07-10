@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BC.SchoolRegistrationApp.DAL.Abstract;
 using BC.SchoolRegistrationApp.Dto.Concrete;
+using BC.SchoolRegistrationApp.Dto.Concrete.Student;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;

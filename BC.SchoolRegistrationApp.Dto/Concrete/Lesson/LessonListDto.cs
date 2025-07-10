@@ -8,5 +8,7 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete.Lesson
 {
     public class LessonListDto
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

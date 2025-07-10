@@ -20,18 +20,42 @@ namespace BC.SchoolRegistrationApp.DAL.Concrete
             _dbContext = dbContext;
             _dbSet = _dbContext.Set<T>();
         }
-        public void Add(T entity)=> _dbContext.Add(entity);
 
-        public void Delete(T entity)=> _dbContext.Remove(entity);
-            
-        public T? Get(Expression<Func<T, bool>> predicate) => _dbSet.FirstOrDefault(predicate);
+        public void Add(T entity) => _dbContext.Add(entity);
 
-        public List<T> GetAll(Expression<Func<T, bool>> filter = null)=> filter == null ? _dbSet.ToList() : _dbSet.Where(filter).ToList();
+        public void Delete(T entity) => _dbContext.Remove(entity);
 
-        public T? GetById(int id)=> _dbSet.Where(x => x.ID == id).FirstOrDefault();
+        public void DeleteById(int id)
+        {
+            var entity = GetById(id);
+            if (entity != null)
+                Delete(entity);
+        }
 
-        public IQueryable<T> GetQueryable()=> _dbSet.AsQueryable();
+        public T? Get(Expression<Func<T, bool>> predicate) =>
+            _dbSet.FirstOrDefault(predicate);
 
-        public void Update(T entity) => _dbContext.Entry(entity).State = EntityState.Modified;
+        public List<T> GetAll(Expression<Func<T, bool>> filter = null) =>
+            filter == null ? _dbSet.ToList() : _dbSet.Where(filter).ToList();
+
+        public T? GetById(int id) =>
+            _dbSet.FirstOrDefault(x => x.ID == id);
+
+        public IQueryable<T> GetQueryable() =>
+            _dbSet.AsQueryable();
+
+        public void Update(T entity) =>
+            _dbContext.Entry(entity).State = EntityState.Modified;
+
+        public T? GetByIdWithIncludes(int id, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _dbSet;
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return query.FirstOrDefault(x => x.ID == id);
+        }
     }
+
 }

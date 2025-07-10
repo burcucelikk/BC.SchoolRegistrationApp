@@ -5,6 +5,12 @@
     <Compile Update="FrmAboutSchool.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmExams.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmGrades.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmStudents.cs">
       <SubType>Form</SubType>
     </Compile>

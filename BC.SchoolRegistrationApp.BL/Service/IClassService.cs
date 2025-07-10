@@ -1,4 +1,4 @@
-﻿using BC.SchoolRegistrationApp.Dto.Concrete;
+﻿using BC.SchoolRegistrationApp.Dto.Concrete.Class;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Service
 {
-    public interface IClassService : IGenericService<Class, ClassDto>
+    public interface IClassService : IGenericServiceDto<Class, ClassDto, ClassAddDto, ClassUpdateDto, ClassListDto, ClassDetailDto>
     {
-        List<string> GetClassNames();
-        int? GetClassIDByName(string className);
+        //List<string> GetClassNames();
     }
 }

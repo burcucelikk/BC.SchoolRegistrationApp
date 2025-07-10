@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BC.SchoolRegistrationApp.Dto.Concrete
+namespace BC.SchoolRegistrationApp.Dto.Concrete.ClassLesson
 {
-    public class GradeDetailDto :IDto
+    public class ClassLessonDto :IDto
     {
         public int Id { get; set; }
+        public string ClassName { get; set; }
         public string LessonName { get; set; }
-        public string ExamType { get; set; }
-        public double Score { get; set; }
+        public string TeacherName { get; set; }
     }
 }

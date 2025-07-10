@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.Dto.Concrete.Student
 {
-    public class StudentUpdateDtocs :IDto
+    public class StudentUpdateDto :IDto
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
         public string Number { get; set; }
         public string? Photograph { get; set; }
-        public int ClassId { get; set; }
         public string ClassName { get; set; }
     }
 }

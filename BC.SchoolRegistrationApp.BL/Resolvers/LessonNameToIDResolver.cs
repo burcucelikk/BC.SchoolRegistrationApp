@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BC.SchoolRegistrationApp.DAL.Abstract;
-using BC.SchoolRegistrationApp.Dto.Concrete;
+using BC.SchoolRegistrationApp.Dto.Concrete.Teacher;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;

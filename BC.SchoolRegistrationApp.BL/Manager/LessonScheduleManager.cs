@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.DAL.Abstract;
-using BC.SchoolRegistrationApp.Dto.Concrete;
+using BC.SchoolRegistrationApp.Dto.Concrete.LessonSchedule;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;

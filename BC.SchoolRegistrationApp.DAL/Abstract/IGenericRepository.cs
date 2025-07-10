@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.Entity.Abstracts
 {
@@ -15,7 +13,8 @@ namespace BC.SchoolRegistrationApp.Entity.Abstracts
         void Add(T entity); // Ekleme
         void Update(T entity); // Güncelleme
         void Delete(T entity); // Silme
+        void DeleteById(int id); // Id ile silme (yeni)
         IQueryable<T> GetQueryable(); // Sorgulanabilir hale getir
-
+        T? GetByIdWithIncludes(int id, params Expression<Func<T, object>>[] includes); // Include ile id'ye göre getir (yeni)
     }
 }

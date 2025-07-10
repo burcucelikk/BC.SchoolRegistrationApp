@@ -9,10 +9,10 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete.Student
 {
     public class StudentListDto :IDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Number { get; set; }
-        public string? Photograph { get; set; }
         public string ClassName { get; set; }
     }
 }

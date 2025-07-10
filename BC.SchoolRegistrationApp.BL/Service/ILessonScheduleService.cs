@@ -1,4 +1,4 @@
-﻿using BC.SchoolRegistrationApp.Dto.Concrete;
+﻿using BC.SchoolRegistrationApp.Dto.Concrete.LessonSchedule;
 using BC.SchoolRegistrationApp.Entity.Entities;
 using System;
 using System.Collections.Generic;

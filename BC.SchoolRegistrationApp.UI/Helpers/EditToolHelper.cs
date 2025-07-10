@@ -31,10 +31,10 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(surname) || string.IsNullOrWhiteSpace(number) || string.IsNullOrWhiteSpace(classStr))
             {
                 MessageBox.Show("Please fill in the blank fields.");
-                return false;
+                return true;
             }
             else
-                return true;
+                return false;
         }
     }
 }

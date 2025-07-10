@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BC.SchoolRegistrationApp.Dto.Concrete
+namespace BC.SchoolRegistrationApp.Dto.Concrete.ClassLesson
 {
-    public class ExamDto :IDto
+    public class ClassLessonScheduleDto :IDto
     {
         //public int Id { get; set; }
-        //public ExamType ExamType { get; set; }
-        //public LessonDto Lesson { get; set; }
-        //public List<GradeDto> Grades { get; set; }
+        //public string ClassName { get; set; }
+        //public string LessonName { get; set; }
+        //public WeekDays Days { get; set; }
+        //public LessonHour LessonHour { get; set; }
     }
 }
