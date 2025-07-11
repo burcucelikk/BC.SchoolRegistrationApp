@@ -59,11 +59,8 @@ namespace BC.SchoolRegistrationApp.BL.Manager
         public void DeleteById(int id)
         {
             var entity = _uow.GetRepository<T>().GetById(id);
-            if (entity != null)
-            {
-                _uow.GetRepository<T>().Delete(entity);
-                _uow.SaveChanges();
-            }
+            _uow.GetRepository<T>().Delete(entity);
+            _uow.SaveChanges();
         }
 
         public List<TListDto> GetAll(Expression<Func<T, bool>> filter = null)

@@ -3,7 +3,10 @@ using BC.SchoolRegistrationApp.Dto.Concrete.Class;
 using BC.SchoolRegistrationApp.Dto.Concrete.Student;
 using BC.SchoolRegistrationApp.UI.Helpers;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -38,58 +41,45 @@ namespace BC.SchoolRegistrationApp.UI
         public void SetFormMode(FormMode mode)
         {
             _currentMode = mode;
+            EditToolHelper.ClearInputs(TextGroup);
+            ListClass2.Properties.NullText = "Classes";
+            ListClass2.EditValue = null;
+            _studentUpdateDto = null;
         }
-
         private void FrmStudents_Load(object sender, EventArgs e)
         {
             ResetView();
             LoadClassList();
             StudentsGrid.DataSource = _studentService.GetAll();
+            CallStudentGrid(StudentsGrid);
         }
         private void ListClass_EditValueChanged(object sender, EventArgs e)
         {
             var selectedClassDto = ListClass.GetSelectedDataRow() as ClassListDto;
             if (selectedClassDto != null)
-            {
                 ShowClassStudents(selectedClassDto.Name, StudentsGrid);
-            }
         }
         private void Save_Click(object sender, EventArgs e)
         {
-            try
+            var selectedClassDto = ListClass2.GetSelectedDataRow() as ClassListDto;
+            string className = selectedClassDto != null ? selectedClassDto.Name : "";
+            bool result = _currentMode switch
             {
-                if (_currentMode == FormMode.Add)
-                {
-                    var selectedClassDto = ListClass2.GetSelectedDataRow() as ClassListDto;
-                    string className = selectedClassDto != null ? selectedClassDto.Name : "";
-                    if (EditToolHelper.HasEmptyFields(textEdit1.Text, textEdit2.Text, textEdit3.Text, ListClass2.EditValue))
-                        return;
+                FormMode.Add => AddStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className),
+                FormMode.Update when _studentUpdateDto != null =>
+                    UpdateStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className, _studentUpdateDto),
+                _ => false
+            };
 
-
-                    bool resultAdd = AddStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className);
-                    if (resultAdd)
-                        MessageBox.Show("Student added successfully.");
-                }
-                else if (_currentMode == FormMode.Update)
-                {
-                    var selectedClassDto = ListClass2.GetSelectedDataRow() as ClassListDto;
-                    string className = selectedClassDto != null ? selectedClassDto.Name : "";
-                    if (_studentUpdateDto == null)
-                    {
-                        MessageBox.Show("Please search for a student before updating.");
-                        return;
-                    }
-                    bool resultUpdate = UpdateStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className, _studentUpdateDto);
-                    if (resultUpdate)
-                        MessageBox.Show("Student updated successfully.");
-                }
-            }
-            catch (Exception ex)
+            if (_currentMode == FormMode.Update && _studentUpdateDto == null)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Please search for a student before updating.");
+                return;
             }
+
+            if (result)
+                MessageBox.Show($"Student {_currentMode.ToString().ToLower()}ed successfully.");
         }
-
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textEdit3.Text))
@@ -105,134 +95,62 @@ namespace BC.SchoolRegistrationApp.UI
                 return;
             }
 
-            textEdit1.Text = _studentDto.Name;
-            textEdit2.Text = _studentDto.Surname;
-            textEdit3.Text = _studentDto.Number;
-            imageEdit1.Image = ImageHelper.FromBase64(_studentDto.Photograph);
-
-            var classList = _classService.GetAll();
-            var selectedClass = classList.FirstOrDefault(c => c.Name == _studentDto.ClassName);
-            if (selectedClass != null)
-                ListClass2.EditValue = selectedClass.Id;
-            else
-                ListClass2.EditValue = null;
-
+            FillFormFromStudentDto(_studentDto);
             AddUpdateDeleteGrid.DataSource = new List<StudentDto> { _studentDto };
-            _studentUpdateDto = new StudentUpdateDto
+            _studentUpdateDto = DtoHelper.CreateStudentUpdateDtoFromDto(_studentDto);
+
+            if (_currentMode == FormMode.Update)
             {
-                Id= _studentDto.Id,
-                Name = _studentDto.Name,
-                Surname = _studentDto.Surname,
-                Number = _studentDto.Number,
-                Photograph = _studentDto.Photograph,
-                ClassName = _studentDto.ClassName
-            };
-        }
-
-        private void AddUpdateDeleteGrid_DoubleClick(object sender, EventArgs e)
-        {
-            try
-            {
-                var gridView = AddUpdateDeleteGrid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
-                if (gridView == null) return;
-
-                var student = gridView.GetFocusedRow() as StudentDto;
-                if (student == null)
-                    throw new Exception("No student selected.");
-
-                if (_currentMode == FormMode.Delete)
+                foreach (Control ctrl in TextGroup.Controls)
                 {
-                    var confirm = MessageBox.Show($"Are you sure you want to delete {student.Name} {student.Surname}?",
-                        "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                    if (confirm == DialogResult.Yes)
+                    ctrl.Enabled = true;
+                    ctrl.Visible = true;
+                    if (ctrl is TextEdit textEdit)
+                        textEdit.ReadOnly = false;
+                }
+                deleteButton.Visible = false;
+                deleteButton.Enabled = false;
+            }
+            else if (_currentMode == FormMode.Delete)
+            {
+                foreach (Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = true;
+                    ctrl.Enabled = false;
+                    if (ctrl is TextEdit textEdit)
+                        textEdit.ReadOnly = true;
+                    if (ctrl == textEdit3 || ctrl == labelControl3 || ctrl == searchButton)
                     {
-                        _studentService.Delete(student);
-                        MessageBox.Show("Student deleted successfully.");
-                        ShowClassStudents(student.ClassName, AddUpdateDeleteGrid);
-                        EditToolHelper.ClearInputs(TextGroup);
+                        ctrl.Enabled = true;
+                        ctrl.Visible = true;
+                        continue;
                     }
                 }
-                else if (_currentMode == FormMode.Update)
-                {
-                    textEdit1.Text = student.Name;
-                    textEdit2.Text = student.Surname;
-                    textEdit3.Text = student.Number;
-                    imageEdit1.Image = string.IsNullOrWhiteSpace(student.Photograph) ? null : ImageHelper.FromBase64(student.Photograph);
-
-                    var classList = _classService.GetAll();
-                    var selectedClass = classList.FirstOrDefault(x => x.Name == student.ClassName);
-                    if (selectedClass != null)
-                        ListClass2.EditValue = selectedClass.Id;
-                    else
-                        ListClass2.EditValue = null;
-                    AddUpdateDeleteGrid.DataSource = new List<StudentDto> { student };
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textEdit3.ReadOnly = false;
+                deleteButton.Visible = true;
+                deleteButton.Enabled = true;
             }
         }
-
-        private bool AddStudent(string name, string surname, string number, Image photograph, string _class)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string base64Photo = ImageHelper.ToBase64(photograph);
-                var student = new StudentAddDto()
-                {
-                    Name = name,
-                    Surname = surname,
-                    Number = number,
-                    Photograph = base64Photo,
-                    ClassName = _class
-                };
-                _studentService.Add(student);
-                EditToolHelper.ClearInputs(TextGroup);
-                ShowClassStudents(_class, AddUpdateDeleteGrid);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
-                MessageBox.Show("Student hasn't been added. Error: " + ex.Message + "\nInner exception: " + inner);
-                return false;
-            }
+            DeleteStudent(_studentDto);
         }
-
-        private bool UpdateStudent(string name, string surname, string number, Image photograph, string _class, StudentUpdateDto student)
+        private void AddUpdateDeleteGrid_DoubleClick(object sender, EventArgs e)
         {
-            try
-            {
-                student.Name = string.IsNullOrWhiteSpace(name) ? student.Name : name;
-                student.Surname = string.IsNullOrWhiteSpace(surname) ? student.Surname : surname;
-                student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
-                student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
-                student.ClassName = string.IsNullOrWhiteSpace(_class) ? student.ClassName : _class;
+            var gridView = AddUpdateDeleteGrid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (gridView == null) return;
 
-                _studentService.Update(student); 
-                EditToolHelper.ClearInputs(TextGroup);
-                ShowClassStudents(_class, AddUpdateDeleteGrid);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
-                MessageBox.Show("Student hasn't been updated. Error: " + ex.Message + "\nInner exception: " + inner);
-                return false;
-            }
+            var student = gridView.GetFocusedRow() as StudentDto;
+            DeleteStudent(_studentDto);
         }
-        private void SetupClassGridLookUpEdit(DevExpress.XtraEditors.GridLookUpEdit gridLookUpEdit)
+        private void SetupClassGridLookUpEdit(GridLookUpEdit gridLookUpEdit)
         {
             var classList = _classService.GetAll();
-
             gridLookUpEdit.Properties.DataSource = classList;
             gridLookUpEdit.Properties.DisplayMember = "Name";
             gridLookUpEdit.Properties.ValueMember = "Id";
             gridLookUpEdit.Properties.NullText = "Classes";
             gridLookUpEdit.EditValue = null;
-
             gridLookUpEdit.Properties.View.Columns.Clear();
             gridLookUpEdit.Properties.View.Columns.AddVisible("Name", "Class");
         }
@@ -241,7 +159,6 @@ namespace BC.SchoolRegistrationApp.UI
             SetupClassGridLookUpEdit(ListClass);
             SetupClassGridLookUpEdit(ListClass2);
         }
-
         public void SetModeView()
         {
             EditToolHelper.ClearInputs(TextGroup);
@@ -251,38 +168,170 @@ namespace BC.SchoolRegistrationApp.UI
             StudentsGrid.Visible = false;
             ListClass.Visible = false;
             AddUpdateDeleteGrid.Visible = true;
-
-            searchButton.Visible = _currentMode == FormMode.Add ? false : true;
-
-            bool editView = _currentMode != FormMode.Delete;
-
-            labelControl5.Visible = editView;
-            ListClass2.Visible = editView;
-            labelControl1.Visible = editView;
-            textEdit1.Visible = editView;
-            labelControl2.Visible = editView;
-            textEdit2.Visible = editView;
-            labelControl3.Visible = true;
-            textEdit3.Visible = true;
-            labelControl4.Visible = editView;
-            imageEdit1.Visible = editView;
+            if (_currentMode == FormMode.Add)
+            {
+                foreach (Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = true;
+                    ctrl.Enabled = true;
+                    if (ctrl is TextEdit textEdit)
+                        textEdit.ReadOnly = false;
+                }
+                searchButton.Visible = false;
+                deleteButton.Visible = false;
+                deleteButton.Enabled = false;
+            }
+            else if (_currentMode == FormMode.Update || _currentMode == FormMode.Delete)
+            {
+                foreach (Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = false;
+                    ctrl.Enabled = false;
+                    if (ctrl == textEdit3 || ctrl == labelControl3 || ctrl == searchButton)
+                    {
+                        ctrl.Enabled = true;
+                        ctrl.Visible = true;
+                        continue;
+                    }
+                }
+            }
         }
-
         public void ResetView()
         {
             TextGroup.Visible = false;
             StudentsGrid.Visible = true;
             ListClass.Visible = true;
             AddUpdateDeleteGrid.Visible = false;
-            searchButton.Visible = false;
         }
-
         public void ShowClassStudents(string selectedClass, GridControl grid)
         {
             var classStudents = _studentService.GetAll(x => x.Class.Name == selectedClass);
             grid.DataSource = classStudents;
+            CallStudentGrid(grid);
         }
+        private void CallStudentGrid(GridControl grid)
+        {
+            var studentGradesIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentGrades.png";
+            var studentDetailIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentInfo.png";
+            if (grid.MainView is GridView gridView)
+            {
+                gridView.OptionsBehavior.Editable = false;
+                gridView.OptionsBehavior.ReadOnly = false;
+                gridView.PopulateColumns();
 
+                if (gridView.Columns["Id"] != null)
+                    gridView.Columns["Id"].Visible = false;
 
+                if (gridView.Columns["colDetail"] == null)
+                {
+                    EditToolHelper.AddButtonColumn(gridView, grid, "Grades", "Grades", studentGradesIcon);
+                    EditToolHelper.AddButtonColumn(gridView, grid, "Detail", "Detail", studentDetailIcon);
+                    gridView.RowCellClick += StudentsGrid_RowCellDoubleClick;
+                }
+            }
+        }
+        private void FillFormFromStudentDto(StudentDto dto)
+        {
+            textEdit1.Text = dto.Name;
+            textEdit2.Text = dto.Surname;
+            textEdit3.Text = dto.Number;
+            imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
+
+            var classList = _classService.GetAll();
+            var selectedClass = classList.FirstOrDefault(c => c.Name == dto.ClassName);
+            ListClass2.EditValue = selectedClass?.Id;
+        }
+        private bool AddStudent(string name, string surname, string number, Image photograph, string className)
+        {
+            try
+            {
+                string base64Photo = ImageHelper.ToBase64(photograph);
+                var student = DtoHelper.CreateStudentAddDtoFromDto(name, surname, number, base64Photo, className);
+                _studentService.Add(student);
+                EditToolHelper.ClearInputs(TextGroup);
+                ShowClassStudents(className, AddUpdateDeleteGrid);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Student hasn't been added. Error: " + ex.Message);
+                return false;
+            }
+        }
+        private bool UpdateStudent(string name, string surname, string number, Image photograph, string className, StudentUpdateDto student)
+        {
+            try
+            {
+                student.Name = string.IsNullOrWhiteSpace(name) ? student.Name : name;
+                student.Surname = string.IsNullOrWhiteSpace(surname) ? student.Surname : surname;
+                student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
+                student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
+                student.ClassName = string.IsNullOrWhiteSpace(className) ? student.ClassName : className;
+
+                _studentService.Update(student);
+                EditToolHelper.ClearInputs(TextGroup);
+                ShowClassStudents(className, AddUpdateDeleteGrid);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
+                MessageBox.Show("Student hasn't been updated. Error: " + ex.Message + "\nInner exception: " + inner);
+                return false;
+            }
+        }
+        private void DeleteStudent(StudentDto student)
+        {
+            if (student == null)
+            {
+                MessageBox.Show("No student selected.");
+                return;
+            }
+
+            var confirm = MessageBox.Show($"Are you sure you want to delete {student.Name} {student.Surname}?",
+                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    _studentService.Delete(student);
+                    MessageBox.Show("Student deleted successfully.");
+                    ShowClassStudents(student.ClassName, AddUpdateDeleteGrid);
+                    EditToolHelper.ClearInputs(TextGroup);
+                    _studentDto = null;
+                    _studentUpdateDto = null;
+                    deleteButton.Enabled = true;
+                    deleteButton.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while deleting the student:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void StudentsGrid_RowCellDoubleClick(object sender, RowCellClickEventArgs e)
+        {
+            if (e.Column.FieldName == "Detail")
+            {
+                var view = sender as GridView;
+                var student = view.GetRow(e.RowHandle) as StudentListDto;
+
+                if (student != null)
+                {
+                    MessageBox.Show($"Detay açılacak: {student.Name} {student.Surname}");
+                }
+            }
+            else if (e.Column.FieldName == "Grades")
+            {
+                var view = sender as GridView;
+                var student = view.GetRow(e.RowHandle) as StudentListDto;
+
+                if (student != null)
+                {
+                    MessageBox.Show($"Notlar açılacak: {student.Name} {student.Surname}");
+                }
+            }
+        }
     }
 }

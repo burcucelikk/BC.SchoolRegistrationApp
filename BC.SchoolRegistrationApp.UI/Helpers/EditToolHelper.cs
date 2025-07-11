@@ -1,4 +1,8 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +21,11 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
                 if (control is TextEdit textEdit)
                     textEdit.Text = string.Empty;
 
-                else if (control is ComboBoxEdit comboBoxEdit)
-                    comboBoxEdit.SelectedIndex = -1;
-
                 else if (control is ImageEdit imageEdit)
                     imageEdit.Image = null;
+
+                if (control.HasChildren)
+                    ClearInputs(control);
             }
         }
         public static bool HasEmptyFields(string name, string surname, string number, object _class)
@@ -35,6 +39,27 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
             }
             else
                 return false;
+        }
+        public static void AddButtonColumn(GridView gridView, GridControl gridControl, string fieldName, string columnName, string iconPath)
+        {
+            var icon = ImageHelper.ResizeImage(iconPath, 24, 24);
+            RepositoryItemButtonEdit buttonEdit = new RepositoryItemButtonEdit();
+            buttonEdit.Buttons[0].Caption = "";
+            buttonEdit.Buttons[0].ImageOptions.Image = icon;
+            buttonEdit.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
+            buttonEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            gridControl.RepositoryItems.Add(buttonEdit);
+
+            GridColumn colButton = new GridColumn();
+            colButton.FieldName = fieldName;
+            colButton.Name = columnName;
+            colButton.Caption = "";
+            colButton.Visible = true;
+            colButton.ColumnEdit = buttonEdit;
+            colButton.OptionsColumn.ReadOnly = false;
+            colButton.OptionsColumn.AllowEdit = true;
+            colButton.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
+            gridView.Columns.Add(colButton);
         }
     }
 }

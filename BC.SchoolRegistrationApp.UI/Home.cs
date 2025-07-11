@@ -57,22 +57,25 @@ namespace BC.SchoolRegistrationApp.UI
         }
         private void AddButton_ItemClick(object sender, ItemClickEventArgs e)
         {
+            _currentMode = FormMode.Add;
             frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(FormMode.Add);
+            frmStudents.SetFormMode(_currentMode);
             frmStudents.SetModeView();
         }
 
         private void UpdateButton_ItemClick(object sender, ItemClickEventArgs e)
         {
+            _currentMode = FormMode.Update;
             frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(FormMode.Update);
+            frmStudents.SetFormMode(_currentMode);
             frmStudents.SetModeView();
         }
 
         private void DeleteButton_ItemClick(object sender, ItemClickEventArgs e)
         {
+            _currentMode = FormMode.Delete;
             frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(FormMode.Delete);
+            frmStudents.SetFormMode(_currentMode);
             frmStudents.SetModeView();
         }
 

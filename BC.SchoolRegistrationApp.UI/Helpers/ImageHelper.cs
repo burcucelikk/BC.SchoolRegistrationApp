@@ -31,5 +31,18 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
             using (MemoryStream memoryStream = new MemoryStream(imageBytes))
                 return Image.FromStream(memoryStream);
         }
+        public static Image ResizeImage(string imagePath, int width, int height)
+        {
+            using (var originalImage = Image.FromFile(imagePath))
+            {
+                var resized = new Bitmap(width, height);
+                using (var g = Graphics.FromImage(resized))
+                {
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.DrawImage(originalImage, 0, 0, width, height);
+                }
+                return resized;
+            }
+        }
     }
 }
