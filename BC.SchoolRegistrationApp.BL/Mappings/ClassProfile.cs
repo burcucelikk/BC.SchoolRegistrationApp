@@ -14,7 +14,9 @@ namespace BC.SchoolRegistrationApp.BL.Mappings
         public ClassProfile()
         {
             CreateMap<Class, ClassDto>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID))
+                .ReverseMap()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => src.Id));
 
             CreateMap<Class, ClassListDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID));

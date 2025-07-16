@@ -23,7 +23,7 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
                 ClassName = dto.ClassName
             };
         }
-        public static StudentAddDto CreateStudentAddDtoFromDto(string name, string surname, string number, string photograph, string className)
+        public static StudentAddDto CreateStudentAddDtoFromDto(string name, string surname, string number, string photograph, int classId)
         {
             return new StudentAddDto
             {
@@ -31,7 +31,7 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
                 Surname = surname,
                 Number = number,
                 Photograph = photograph,
-                ClassName = className
+                ClassId = classId
             };
         }
     }

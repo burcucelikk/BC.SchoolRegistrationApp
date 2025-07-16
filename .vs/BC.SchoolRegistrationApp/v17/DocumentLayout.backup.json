@@ -7,24 +7,28 @@
       "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\frmstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.ui\\helpers\\imagehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\helpers\\imagehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{77D3B7C0-761F-4908-A92B-0663C1120A2A}|BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.dto\\concrete\\student\\studentdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77D3B7C0-761F-4908-A92B-0663C1120A2A}|BC.SchoolRegistrationApp.Dto\\BC.SchoolRegistrationApp.Dto.csproj|solutionrelative:bc.schoolregistrationapp.dto\\concrete\\student\\studentdetaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.ui\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.bl\\manager\\studentmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|solutionrelative:bc.schoolregistrationapp.bl\\manager\\studentmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\bc.schoolregistrationapp.ui\\frmstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\frmstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.ui\\helpers\\dtohelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\helpers\\dtohelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.bl\\mappings\\classprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|solutionrelative:bc.schoolregistrationapp.bl\\mappings\\classprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.bl\\mappings\\studentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8D911BE8-35B1-40CE-AB5A-80EB61B57AE8}|BC.SchoolRegistrationApp.BL\\BC.SchoolRegistrationApp.BL.csproj|solutionrelative:bc.schoolregistrationapp.bl\\mappings\\studentprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|c:\\users\\burcu\\source\\repos\\bc.schoolregistrationapp\\bc.schoolregistrationapp.ui\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|solutionrelative:bc.schoolregistrationapp.ui\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CCA787AC-4D0B-4320-8D4C-0A139FA7F5D8}|BC.SchoolRegistrationApp.UI\\BC.SchoolRegistrationApp.UI.csproj|C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\bc.schoolregistrationapp.ui\\home.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -38,83 +42,32 @@
       "DocumentGroups": [
         {
           "DockedHeight": 281,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ImageHelper.cs",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Helpers\\ImageHelper.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Helpers\\ImageHelper.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Helpers\\ImageHelper.cs",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Helpers\\ImageHelper.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAYwCEAAAAnAAAAAAAAAA==",
+              "Title": "StudentDetailDto.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\Concrete\\Student\\StudentDetailDto.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.Dto\\Concrete\\Student\\StudentDetailDto.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.Dto\\Concrete\\Student\\StudentDetailDto.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.Dto\\Concrete\\Student\\StudentDetailDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T11:19:05.154Z",
+              "WhenOpened": "2025-07-16T14:23:31.86Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Home.cs",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Home.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Home.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAswE4AAAAmAAAAAAAAAA==",
+              "Title": "StudentManager.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Manager\\StudentManager.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.BL\\Manager\\StudentManager.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Manager\\StudentManager.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.BL\\Manager\\StudentManager.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T12:50:54.488Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Home.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Home.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs [Design]",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Home.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T12:50:51.105Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DtoHelper.cs",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Helpers\\DtoHelper.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Helpers\\DtoHelper.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Helpers\\DtoHelper.cs",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Helpers\\DtoHelper.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBkAAABxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T09:25:57.034Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "StudentProfile.cs",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBYAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T09:11:16.108Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "FrmStudents.cs",
-              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
-              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
-              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
-              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
-              "ViewState": "AgIAANkAAAAAAAAAAAAmwOIAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-07T06:29:42.436Z",
+              "WhenOpened": "2025-07-14T13:32:22.094Z",
               "EditorCaption": ""
             },
             {
@@ -126,8 +79,69 @@
               "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\FrmStudents.cs [Design]",
               "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\FrmStudents.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-05T11:19:41.294Z",
+              "WhenOpened": "2025-07-14T11:59:58.798Z",
               "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StudentProfile.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.BL\\Mappings\\StudentProfile.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABQAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T10:00:14.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ClassProfile.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\ClassProfile.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.BL\\Mappings\\ClassProfile.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.BL\\Mappings\\ClassProfile.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.BL\\Mappings\\ClassProfile.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T09:59:21.036Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Home.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Home.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Home.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAA7wFIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T12:50:54.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Home.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\Home.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\Home.cs [Design]",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\Home.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-10T12:50:51.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FrmStudents.cs",
+              "DocumentMoniker": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
+              "RelativeDocumentMoniker": "BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
+              "ToolTip": "C:\\Users\\burcu\\source\\repos\\BC.SchoolRegistrationApp\\BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
+              "RelativeToolTip": "BC.SchoolRegistrationApp.UI\\FrmStudents.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAqwE8AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T06:29:42.436Z",
+              "EditorCaption": ""
             }
           ]
         }

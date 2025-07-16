@@ -1,11 +1,11 @@
 ﻿using BC.SchoolRegistrationApp.BL.Service;
 using BC.SchoolRegistrationApp.Dto.Concrete.Class;
+using BC.SchoolRegistrationApp.Dto.Concrete.Grade;
 using BC.SchoolRegistrationApp.Dto.Concrete.Student;
+using BC.SchoolRegistrationApp.UI.Constants;
 using BC.SchoolRegistrationApp.UI.Helpers;
 using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using System;
 using System.Collections.Generic;
@@ -17,12 +17,7 @@ namespace BC.SchoolRegistrationApp.UI
 {
     public partial class FrmStudents : DevExpress.XtraEditors.XtraForm
     {
-        public enum FormMode
-        {
-            Add,
-            Update,
-            Delete
-        }
+        public enum FormMode { None, Add, Update, Delete, Detail}
 
         private FormMode _currentMode;
         private readonly IClassService _classService;
@@ -37,48 +32,54 @@ namespace BC.SchoolRegistrationApp.UI
             _classService = classService;
             _studentService = studentService;
         }
-
         public void SetFormMode(FormMode mode)
         {
             _currentMode = mode;
-            EditToolHelper.ClearInputs(TextGroup);
-            ListClass2.Properties.NullText = "Classes";
-            ListClass2.EditValue = null;
+            DevExpToolHelper.ClearInputs(TextGroup);
+            classInputLookup.Properties.NullText = "Classes";
+            classInputLookup.EditValue = null;
             _studentUpdateDto = null;
         }
         private void FrmStudents_Load(object sender, EventArgs e)
         {
+            _currentMode = FormMode.None;
             ResetView();
             LoadClassList();
+            StudentsGrid.Enabled = true;
             StudentsGrid.DataSource = _studentService.GetAll();
             CallStudentGrid(StudentsGrid);
+            crudFlyoutPanel.OwnerControl = this;
+            overlayPanel.Visible = false;
         }
-        private void ListClass_EditValueChanged(object sender, EventArgs e)
+        private void classFilterLookup_EditValueChanged(object sender, EventArgs e)
         {
-            var selectedClassDto = ListClass.GetSelectedDataRow() as ClassListDto;
+            var selectedClassDto = classFilterLookup.GetSelectedDataRow() as ClassListDto;
             if (selectedClassDto != null)
                 ShowClassStudents(selectedClassDto.Name, StudentsGrid);
         }
-        private void Save_Click(object sender, EventArgs e)
+        private void StudentsGrid_RowCellClick(object sender, RowCellClickEventArgs e)
         {
-            var selectedClassDto = ListClass2.GetSelectedDataRow() as ClassListDto;
-            string className = selectedClassDto != null ? selectedClassDto.Name : "";
-            bool result = _currentMode switch
+            var view = sender as GridView;
+            var student = view.GetRow(e.RowHandle) as StudentListDto;
+            if (student == null) return;
+            var studentDetails = _studentService.GetDetailById(student.Id);
+            if (e.Column.FieldName == "Detail")
             {
-                FormMode.Add => AddStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className),
-                FormMode.Update when _studentUpdateDto != null =>
-                    UpdateStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className, _studentUpdateDto),
-                _ => false
-            };
-
-            if (_currentMode == FormMode.Update && _studentUpdateDto == null)
-            {
-                MessageBox.Show("Please search for a student before updating.");
-                return;
+                _currentMode = FormMode.Detail;
+                if (studentDetails != null)
+                {
+                    ShowFlyoutModePanel(_currentMode);
+                    FillStudentDetailDto(studentDetails);
+                }
             }
-
-            if (result)
-                MessageBox.Show($"Student {_currentMode.ToString().ToLower()}ed successfully.");
+            else if (e.Column.FieldName == "Grades")
+            {
+                if (studentDetails != null)
+                {
+                    ShowFlyoutGridPanel(gradesGrid);
+                    LoadGradesToGrid(studentDetails.Grades);
+                }
+            }
         }
         private void searchButton_Click(object sender, EventArgs e)
         {
@@ -95,8 +96,7 @@ namespace BC.SchoolRegistrationApp.UI
                 return;
             }
 
-            FillFormFromStudentDto(_studentDto);
-            AddUpdateDeleteGrid.DataSource = new List<StudentDto> { _studentDto };
+            FillStudentDto(_studentDto);
             _studentUpdateDto = DtoHelper.CreateStudentUpdateDtoFromDto(_studentDto);
 
             if (_currentMode == FormMode.Update)
@@ -108,8 +108,8 @@ namespace BC.SchoolRegistrationApp.UI
                     if (ctrl is TextEdit textEdit)
                         textEdit.ReadOnly = false;
                 }
-                deleteButton.Visible = false;
-                deleteButton.Enabled = false;
+                deleteBtn.Visible = false;
+                deleteBtn.Enabled = false;
             }
             else if (_currentMode == FormMode.Delete)
             {
@@ -127,81 +127,58 @@ namespace BC.SchoolRegistrationApp.UI
                     }
                 }
                 textEdit3.ReadOnly = false;
-                deleteButton.Visible = true;
-                deleteButton.Enabled = true;
+                deleteBtn.Visible = true;
+                deleteBtn.Enabled = true;
+                btnClose.Visible = true;
+                btnClose.Enabled = true;
+            }
+            gradesGrid.Visible = false;
+        }
+        private void deleteBtn_Click(object sender, EventArgs e)
+        {
+            bool result = DeleteStudent(_studentDto);
+            if (result)
+            {
+                MessageBox.Show($"Student {_currentMode.ToString().ToLower()}ed successfully.");
+                CloseFlyoutPanel();
             }
         }
-        private void deleteButton_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
-            DeleteStudent(_studentDto);
-        }
-        private void AddUpdateDeleteGrid_DoubleClick(object sender, EventArgs e)
-        {
-            var gridView = AddUpdateDeleteGrid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
-            if (gridView == null) return;
+            var selectedClassDto = classInputLookup.GetSelectedDataRow() as ClassListDto;
+            string className = selectedClassDto?.Name ?? "";
 
-            var student = gridView.GetFocusedRow() as StudentDto;
-            DeleteStudent(_studentDto);
+            bool result = _currentMode switch
+            {
+                FormMode.Add => AddStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className),
+                FormMode.Update when _studentUpdateDto != null => UpdateStudent(textEdit1.Text, textEdit2.Text, textEdit3.Text, imageEdit1.Image, className, _studentUpdateDto),
+                _ => false
+            };
+
+            if (_currentMode == FormMode.Update && _studentUpdateDto == null)
+            {
+                MessageBox.Show(Messages.StudentNotSelected);
+                return;
+            }
+
+            if (result)
+            {
+                MessageBox.Show(string.Format(Messages.OperationSuccessful, "Student", _currentMode.ToString().ToLower()));
+                CloseFlyoutPanel();
+            }
         }
-        private void SetupClassGridLookUpEdit(GridLookUpEdit gridLookUpEdit)
-        {
-            var classList = _classService.GetAll();
-            gridLookUpEdit.Properties.DataSource = classList;
-            gridLookUpEdit.Properties.DisplayMember = "Name";
-            gridLookUpEdit.Properties.ValueMember = "Id";
-            gridLookUpEdit.Properties.NullText = "Classes";
-            gridLookUpEdit.EditValue = null;
-            gridLookUpEdit.Properties.View.Columns.Clear();
-            gridLookUpEdit.Properties.View.Columns.AddVisible("Name", "Class");
-        }
+        private void addButton_Click(object sender, EventArgs e) => ShowFlyoutModePanel(FormMode.Add);
+        private void updateButton_Click(object sender, EventArgs e) => ShowFlyoutModePanel(FormMode.Update);
+        private void deleteButton_Click(object sender, EventArgs e) => ShowFlyoutModePanel(FormMode.Delete);
+        private void btnClose_Click(object sender, EventArgs e) => CloseFlyoutPanel();
+
+
         public void LoadClassList()
         {
-            SetupClassGridLookUpEdit(ListClass);
-            SetupClassGridLookUpEdit(ListClass2);
-        }
-        public void SetModeView()
-        {
-            EditToolHelper.ClearInputs(TextGroup);
-            AddUpdateDeleteGrid.DataSource = null;
-
-            TextGroup.Visible = true;
-            StudentsGrid.Visible = false;
-            ListClass.Visible = false;
-            AddUpdateDeleteGrid.Visible = true;
-            if (_currentMode == FormMode.Add)
-            {
-                foreach (Control ctrl in TextGroup.Controls)
-                {
-                    ctrl.Visible = true;
-                    ctrl.Enabled = true;
-                    if (ctrl is TextEdit textEdit)
-                        textEdit.ReadOnly = false;
-                }
-                searchButton.Visible = false;
-                deleteButton.Visible = false;
-                deleteButton.Enabled = false;
-            }
-            else if (_currentMode == FormMode.Update || _currentMode == FormMode.Delete)
-            {
-                foreach (Control ctrl in TextGroup.Controls)
-                {
-                    ctrl.Visible = false;
-                    ctrl.Enabled = false;
-                    if (ctrl == textEdit3 || ctrl == labelControl3 || ctrl == searchButton)
-                    {
-                        ctrl.Enabled = true;
-                        ctrl.Visible = true;
-                        continue;
-                    }
-                }
-            }
-        }
-        public void ResetView()
-        {
-            TextGroup.Visible = false;
-            StudentsGrid.Visible = true;
-            ListClass.Visible = true;
-            AddUpdateDeleteGrid.Visible = false;
+            SetupClassGridLookUpEdit(classInputLookup);
+            SetupClassGridLookUpEdit(classFilterLookup);
+            overlayPanel.Visible = false;
+            ResetView();
         }
         public void ShowClassStudents(string selectedClass, GridControl grid)
         {
@@ -209,52 +186,27 @@ namespace BC.SchoolRegistrationApp.UI
             grid.DataSource = classStudents;
             CallStudentGrid(grid);
         }
-        private void CallStudentGrid(GridControl grid)
-        {
-            var studentGradesIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentGrades.png";
-            var studentDetailIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentInfo.png";
-            if (grid.MainView is GridView gridView)
-            {
-                gridView.OptionsBehavior.Editable = false;
-                gridView.OptionsBehavior.ReadOnly = false;
-                gridView.PopulateColumns();
-
-                if (gridView.Columns["Id"] != null)
-                    gridView.Columns["Id"].Visible = false;
-
-                if (gridView.Columns["colDetail"] == null)
-                {
-                    EditToolHelper.AddButtonColumn(gridView, grid, "Grades", "Grades", studentGradesIcon);
-                    EditToolHelper.AddButtonColumn(gridView, grid, "Detail", "Detail", studentDetailIcon);
-                    gridView.RowCellClick += StudentsGrid_RowCellDoubleClick;
-                }
-            }
-        }
-        private void FillFormFromStudentDto(StudentDto dto)
-        {
-            textEdit1.Text = dto.Name;
-            textEdit2.Text = dto.Surname;
-            textEdit3.Text = dto.Number;
-            imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
-
-            var classList = _classService.GetAll();
-            var selectedClass = classList.FirstOrDefault(c => c.Name == dto.ClassName);
-            ListClass2.EditValue = selectedClass?.Id;
-        }
         private bool AddStudent(string name, string surname, string number, Image photograph, string className)
         {
             try
             {
-                string base64Photo = ImageHelper.ToBase64(photograph);
-                var student = DtoHelper.CreateStudentAddDtoFromDto(name, surname, number, base64Photo, className);
+                var selectedClass = classInputLookup.GetSelectedDataRow() as ClassListDto;
+                if (selectedClass == null)
+                {
+                    MessageBox.Show(string.Format(Messages.SelectItem, "class"));
+                    return false;
+                }
+
+                var student = DtoHelper.CreateStudentAddDtoFromDto(
+                    name, surname, number, ImageHelper.ToBase64(photograph), selectedClass.Id);
                 _studentService.Add(student);
-                EditToolHelper.ClearInputs(TextGroup);
-                ShowClassStudents(className, AddUpdateDeleteGrid);
+                DevExpToolHelper.ClearInputs(TextGroup);
+                ShowClassStudents(className, StudentsGrid);
                 return true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Student hasn't been added. Error: " + ex.Message);
+                MessageBox.Show(string.Format(Messages.OperationFailed, "Student", "add", ex.Message));
                 return false;
             }
         }
@@ -269,69 +221,217 @@ namespace BC.SchoolRegistrationApp.UI
                 student.ClassName = string.IsNullOrWhiteSpace(className) ? student.ClassName : className;
 
                 _studentService.Update(student);
-                EditToolHelper.ClearInputs(TextGroup);
-                ShowClassStudents(className, AddUpdateDeleteGrid);
+                DevExpToolHelper.ClearInputs(TextGroup);
+                ShowClassStudents(className, StudentsGrid);
                 return true;
             }
             catch (Exception ex)
             {
-                var inner = ex.InnerException != null ? ex.InnerException.Message : "No inner exception";
-                MessageBox.Show("Student hasn't been updated. Error: " + ex.Message + "\nInner exception: " + inner);
+                var inner = ex.InnerException != null ? ex.InnerException.Message : Messages.InnerException;
+                MessageBox.Show(string.Format(Messages.OperationFailed, "Student", "update", ex.Message + "\n" + inner));
                 return false;
             }
         }
-        private void DeleteStudent(StudentDto student)
+        private bool DeleteStudent(StudentDto student)
         {
             if (student == null)
             {
-                MessageBox.Show("No student selected.");
-                return;
+                MessageBox.Show(Messages.StudentNotSelected);
+                return false;
             }
 
-            var confirm = MessageBox.Show($"Are you sure you want to delete {student.Name} {student.Surname}?",
-                "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var confirm = MessageBox.Show(
+                string.Format(Messages.AreYouSureToDelete, student.Name + " " + student.Surname),
+                Messages.ConfirmDeleteTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirm == DialogResult.Yes)
             {
                 try
                 {
                     _studentService.Delete(student);
-                    MessageBox.Show("Student deleted successfully.");
-                    ShowClassStudents(student.ClassName, AddUpdateDeleteGrid);
-                    EditToolHelper.ClearInputs(TextGroup);
+                    ShowClassStudents(student.ClassName, StudentsGrid);
+                    DevExpToolHelper.ClearInputs(TextGroup);
                     _studentDto = null;
                     _studentUpdateDto = null;
-                    deleteButton.Enabled = true;
-                    deleteButton.Visible = true;
+                    deleteBtn.Enabled = true;
+                    deleteBtn.Visible = true;
+                    return true;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occurred while deleting the student:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(Messages.OperationFailed, "Student", "delete", ex.Message));
+                    return false;
                 }
+            }
+            return false;
+        }
+        private void FillStudentDto(StudentDto dto)
+        {
+            textEdit1.Text = dto.Name;
+            textEdit2.Text = dto.Surname;
+            textEdit3.Text = dto.Number;
+            imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
+
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
+            classInputLookup.EditValue = selectedClass?.Id;
+        }
+        private void FillStudentDetailDto(StudentDetailDto dto)
+        {
+            textEdit1.Text = dto.Name;
+            textEdit2.Text = dto.Surname;
+            textEdit3.Text = dto.Number;
+            imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
+            checkEdit1.Checked = dto.IsPassed;
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
+            classInputLookup.EditValue = selectedClass?.Id;
+        }
+        private void CallStudentGrid(GridControl grid)
+        {
+            var studentGradesIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentGrades.png";
+            var studentDetailIcon = "C:/Users/burcu/source/repos/BC.SchoolRegistrationApp/BC.SchoolRegistrationApp.UI/photos/icons/studentInfo.png";
+            if (grid.MainView is GridView gridView)
+            {
+                gridView.OptionsBehavior.Editable = false;
+                gridView.OptionsBehavior.ReadOnly = false;
+                gridView.PopulateColumns();
+                gridView.Columns["Id"].Visible = false;
+
+                if (gridView.Columns.ColumnByFieldName("Grades") == null)
+                    DevExpToolHelper.AddButtonColumn(gridView, grid, "Grades", "Grades", studentGradesIcon);
+
+                if (gridView.Columns.ColumnByFieldName("Detail") == null)
+                    DevExpToolHelper.AddButtonColumn(gridView, grid, "Detail", "Detail", studentDetailIcon);
+
+                gridView.RowCellClick -= StudentsGrid_RowCellClick;
+                gridView.RowCellClick += StudentsGrid_RowCellClick;
             }
         }
-        private void StudentsGrid_RowCellDoubleClick(object sender, RowCellClickEventArgs e)
+        private void SetupClassGridLookUpEdit(GridLookUpEdit gridLookUpEdit)
         {
-            if (e.Column.FieldName == "Detail")
-            {
-                var view = sender as GridView;
-                var student = view.GetRow(e.RowHandle) as StudentListDto;
+            var classList = _classService.GetAll();
+            gridLookUpEdit.Properties.DataSource = classList;
+            gridLookUpEdit.Properties.DisplayMember = "Name";
+            gridLookUpEdit.Properties.ValueMember = "Id";
+            gridLookUpEdit.Properties.NullText = "Classes";
+            gridLookUpEdit.EditValue = null;
+            gridLookUpEdit.Properties.View.Columns.Clear();
+            gridLookUpEdit.Properties.View.Columns.AddVisible("Name", "Class");
+        }
+        private void LoadGradesToGrid(List<GradeDetailDto> grades)
+        {
+            gradesGrid.DataSource = grades;
 
-                if (student != null)
-                {
-                    MessageBox.Show($"Detay açılacak: {student.Name} {student.Surname}");
-                }
-            }
-            else if (e.Column.FieldName == "Grades")
+            if (gradesGrid.MainView is GridView gridView)
             {
-                var view = sender as GridView;
-                var student = view.GetRow(e.RowHandle) as StudentListDto;
+                gridView.PopulateColumns();
 
-                if (student != null)
-                {
-                    MessageBox.Show($"Notlar açılacak: {student.Name} {student.Surname}");
-                }
+                gridView.Columns["GradeId"].Visible = false;
+
+                gridView.Columns["LessonName"].Caption = "Lesson";
+                gridView.Columns["ExamType"].Caption = "Exam Type";
+                gridView.Columns["Score"].Caption = "Score";
+
+                gridView.OptionsBehavior.Editable = false;
+                gridView.OptionsView.ColumnAutoWidth = true;
+                gridView.BestFitColumns();
             }
+        }
+        public void SetModeView()
+        {
+            DevExpToolHelper.ClearInputs(TextGroup);
+            TextGroup.Visible = true;
+            classFilterLookup.Enabled = false;
+            
+            if (_currentMode == FormMode.Add)
+            {
+                foreach (Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = true;
+                    ctrl.Enabled = true;
+                    if (ctrl is TextEdit textEdit)
+                        textEdit.ReadOnly = false;
+                    if (ctrl == searchButton || ctrl == deleteBtn || ctrl == searchButton || ctrl == checkEdit1)
+                    {
+                        ctrl.Enabled = false;
+                        ctrl.Visible = false;
+                        continue;
+                    }
+                }
+                gradesGrid.Visible = false;
+            }
+            else if (_currentMode == FormMode.Update || _currentMode == FormMode.Delete)
+            {
+                foreach (Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = false;
+                    ctrl.Enabled = false;
+                    if (ctrl == textEdit3 || ctrl == labelControl3 || ctrl == searchButton)
+                    {
+                        ctrl.Enabled = true;
+                        ctrl.Visible = true;
+                        continue;
+                    }
+                }
+                gradesGrid.Visible = false;
+            }
+            else if (_currentMode == FormMode.Detail)
+            {
+                foreach(Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = true;
+                    ctrl.Enabled = false;
+                    if (ctrl is TextEdit textEdit)
+                        textEdit.ReadOnly = true;
+                    if (ctrl == deleteBtn || ctrl == Save  || ctrl == searchButton)
+                    {
+                        ctrl.Enabled = false;
+                        ctrl.Visible = false;
+                        continue;
+                    }
+                }
+                gradesGrid.Visible = false;
+            }
+            btnClose.Visible = true;
+            btnClose.Enabled = true;
+        }
+        public void ResetView()
+        {
+            TextGroup.Visible = false;
+            StudentsGrid.Visible = true;
+            classFilterLookup.Visible = true;
+            classFilterLookup.Enabled = true;
+            overlayPanel.Visible = false;
+            gradesGrid.Visible = false;
+        }
+
+        private void ShowFlyoutModePanel(FormMode mode)
+        {
+            _currentMode = mode;
+            SetFormMode(_currentMode);
+            SetModeView();
+
+            overlayPanel.Visible = true;
+            overlayPanel.BringToFront();
+
+            crudFlyoutPanel.OwnerControl = this;
+            crudFlyoutPanel.ShowPopup();
+        }
+        private void ShowFlyoutGridPanel(Control control)
+        {
+            overlayPanel.Visible = true;
+            overlayPanel.BringToFront();
+
+            crudFlyoutPanel.OwnerControl = this;
+            crudFlyoutPanel.ShowPopup();
+
+            control.Parent = crudFlyoutPanel;
+            control.Visible = true;
+            gradesGrid.Visible= true;
+        }
+        private void CloseFlyoutPanel()
+        {
+            crudFlyoutPanel.HidePopup();
+            ResetView();
         }
     }
 }

@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace BC.SchoolRegistrationApp.UI.Helpers
 {
-    public static class EditToolHelper
+    public static class DevExpToolHelper
     {
         public static void ClearInputs(Control container)
         {
@@ -61,5 +61,6 @@ namespace BC.SchoolRegistrationApp.UI.Helpers
             colButton.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
             gridView.Columns.Add(colButton);
         }
+
     }
 }
