@@ -20,8 +20,8 @@ namespace BC.SchoolRegistrationApp.BL.Manager
         where TListDto : class
         where TDetailDto : class
     {
-        private readonly IMapper _mapper;
-        private readonly IUow _uow;
+        protected readonly IMapper _mapper;
+        protected readonly IUow _uow;
 
         public GenericManagerDto(IUow uow, IMapper mapper)
         {

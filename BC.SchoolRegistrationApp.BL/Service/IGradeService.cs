@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace BC.SchoolRegistrationApp.BL.Service
 {
-    public interface IGradeService :IGenericService<Grade, GradeDetailDto> 
+    public interface IGradeService :IGenericServiceDto<Grade, GradeDto, GradeAddDto, GradeUpdateDto, GradeListDto, GradeDetailDto> 
     {
+        List<GradeDetailDto> GetGradesByStudentId(int studentId);
     }
 }

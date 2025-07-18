@@ -13,7 +13,25 @@ namespace BC.SchoolRegistrationApp.BL.Mappings
     {
         public GradeProfile()
         {
-            CreateMap<Grade, GradeDetailDto>();
+            CreateMap<Grade,GradeDto>()
+                .ForMember(dest=>dest.StudentFullName, opt=>opt.MapFrom(src=>src.Student.Name))
+                .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Lesson.Name))
+                .ForMember(dest => dest.Exam, opt => opt.MapFrom(src => src.Exam.ExamType.ToString()))
+                .ReverseMap();
+
+            CreateMap<Grade, GradeListDto>()
+                .ForMember(dest => dest.Exam, opt => opt.MapFrom(src => src.Exam.ExamType.ToString()))
+                .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Lesson.Name))
+                .ForMember(dest => dest.StudentNumber, opt => opt.MapFrom(src => src.Student.Number))
+                .ForMember(dest => dest.StudentFullName, opt => opt.MapFrom(src => string.Join(src.Student.Name,src.Student.Surname)));
+
+            CreateMap<Grade, GradeDetailDto>()
+                .ForMember(dest => dest.Lesson, opt => opt.MapFrom(src => src.Lesson.Name))
+                .ForMember(dest => dest.Exam, opt => opt.MapFrom(src => src.Exam.ExamType.ToString()));
+
+            CreateMap<GradeAddDto,Grade>();
+
+            CreateMap<Grade,GradeUpdateDto>().ReverseMap();
         }
     }
 }

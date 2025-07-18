@@ -19,18 +19,20 @@ namespace BC.SchoolRegistrationApp.UI
     {
         public enum FormMode { None, Add, Update, Delete, Detail}
 
-        private FormMode _currentMode;
+        private FormMode _currentMode= FormMode.None;
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
 
         private StudentUpdateDto _studentUpdateDto = null;
         private StudentDto _studentDto = new StudentDto();
 
-        public FrmStudents(IClassService classService, IStudentService studentService)
+        public FrmStudents(IClassService classService, IStudentService studentService, IGradeService gradeService)
         {
             InitializeComponent();
             _classService = classService;
             _studentService = studentService;
+            _gradeService = gradeService;
         }
         public void SetFormMode(FormMode mode)
         {
@@ -42,7 +44,6 @@ namespace BC.SchoolRegistrationApp.UI
         }
         private void FrmStudents_Load(object sender, EventArgs e)
         {
-            _currentMode = FormMode.None;
             ResetView();
             LoadClassList();
             StudentsGrid.Enabled = true;
@@ -62,9 +63,9 @@ namespace BC.SchoolRegistrationApp.UI
             var view = sender as GridView;
             var student = view.GetRow(e.RowHandle) as StudentListDto;
             if (student == null) return;
-            var studentDetails = _studentService.GetDetailById(student.Id);
             if (e.Column.FieldName == "Detail")
             {
+                var studentDetails = _studentService.GetDetailById(student.Id);
                 _currentMode = FormMode.Detail;
                 if (studentDetails != null)
                 {
@@ -74,10 +75,12 @@ namespace BC.SchoolRegistrationApp.UI
             }
             else if (e.Column.FieldName == "Grades")
             {
-                if (studentDetails != null)
+                var gradeDetails = _gradeService.GetGradesByStudentId(student.Id);
+                _currentMode = FormMode.None;
+                if (gradeDetails != null)
                 {
-                    ShowFlyoutGridPanel(gradesGrid);
-                    LoadGradesToGrid(studentDetails.Grades);
+                    ShowFlyoutGridPanel(_currentMode, gradesGrid);
+                    LoadGradesToGrid(gradeDetails);
                 }
             }
         }
@@ -218,7 +221,7 @@ namespace BC.SchoolRegistrationApp.UI
                 student.Surname = string.IsNullOrWhiteSpace(surname) ? student.Surname : surname;
                 student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
                 student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
-                student.ClassName = string.IsNullOrWhiteSpace(className) ? student.ClassName : className;
+                student.Class = string.IsNullOrWhiteSpace(className) ? student.Class : className;
 
                 _studentService.Update(student);
                 DevExpToolHelper.ClearInputs(TextGroup);
@@ -249,7 +252,7 @@ namespace BC.SchoolRegistrationApp.UI
                 try
                 {
                     _studentService.Delete(student);
-                    ShowClassStudents(student.ClassName, StudentsGrid);
+                    ShowClassStudents(student.Class, StudentsGrid);
                     DevExpToolHelper.ClearInputs(TextGroup);
                     _studentDto = null;
                     _studentUpdateDto = null;
@@ -272,7 +275,7 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit3.Text = dto.Number;
             imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
 
-            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.Class);
             classInputLookup.EditValue = selectedClass?.Id;
         }
         private void FillStudentDetailDto(StudentDetailDto dto)
@@ -282,7 +285,7 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit3.Text = dto.Number;
             imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
             checkEdit1.Checked = dto.IsPassed;
-            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.Class);
             classInputLookup.EditValue = selectedClass?.Id;
         }
         private void CallStudentGrid(GridControl grid)
@@ -301,9 +304,11 @@ namespace BC.SchoolRegistrationApp.UI
 
                 if (gridView.Columns.ColumnByFieldName("Detail") == null)
                     DevExpToolHelper.AddButtonColumn(gridView, grid, "Detail", "Detail", studentDetailIcon);
-
+                
                 gridView.RowCellClick -= StudentsGrid_RowCellClick;
                 gridView.RowCellClick += StudentsGrid_RowCellClick;
+                gridView.OptionsView.ColumnAutoWidth = true;
+                gridView.BestFitColumns();
             }
         }
         private void SetupClassGridLookUpEdit(GridLookUpEdit gridLookUpEdit)
@@ -325,11 +330,8 @@ namespace BC.SchoolRegistrationApp.UI
             {
                 gridView.PopulateColumns();
 
-                gridView.Columns["GradeId"].Visible = false;
-
-                gridView.Columns["LessonName"].Caption = "Lesson";
-                gridView.Columns["ExamType"].Caption = "Exam Type";
-                gridView.Columns["Score"].Caption = "Score";
+                gridView.Columns["Id"].Visible = false;
+                gridView.Columns["StudentId"].Visible = false;
 
                 gridView.OptionsBehavior.Editable = false;
                 gridView.OptionsView.ColumnAutoWidth = true;
@@ -341,8 +343,15 @@ namespace BC.SchoolRegistrationApp.UI
             DevExpToolHelper.ClearInputs(TextGroup);
             TextGroup.Visible = true;
             classFilterLookup.Enabled = false;
-            
-            if (_currentMode == FormMode.Add)
+            if (_currentMode == FormMode.None)
+            {
+                foreach(Control ctrl in TextGroup.Controls)
+                {
+                    ctrl.Visible = false;
+                    ctrl.Enabled = false;
+                }
+            }
+            else if (_currentMode == FormMode.Add)
             {
                 foreach (Control ctrl in TextGroup.Controls)
                 {
@@ -350,14 +359,13 @@ namespace BC.SchoolRegistrationApp.UI
                     ctrl.Enabled = true;
                     if (ctrl is TextEdit textEdit)
                         textEdit.ReadOnly = false;
-                    if (ctrl == searchButton || ctrl == deleteBtn || ctrl == searchButton || ctrl == checkEdit1)
+                    if (ctrl == searchButton || ctrl == deleteBtn || ctrl == searchButton || ctrl == checkEdit1 || ctrl== gradesGrid)
                     {
                         ctrl.Enabled = false;
                         ctrl.Visible = false;
                         continue;
                     }
                 }
-                gradesGrid.Visible = false;
             }
             else if (_currentMode == FormMode.Update || _currentMode == FormMode.Delete)
             {
@@ -416,20 +424,24 @@ namespace BC.SchoolRegistrationApp.UI
             crudFlyoutPanel.OwnerControl = this;
             crudFlyoutPanel.ShowPopup();
         }
-        private void ShowFlyoutGridPanel(Control control)
+        private void ShowFlyoutGridPanel(FormMode mode, Control control)
         {
+            _currentMode = mode;
+            SetFormMode(_currentMode);
+            SetModeView();
+
+            control.Visible = true;
+            control.Enabled = true;
+
             overlayPanel.Visible = true;
             overlayPanel.BringToFront();
 
             crudFlyoutPanel.OwnerControl = this;
             crudFlyoutPanel.ShowPopup();
-
-            control.Parent = crudFlyoutPanel;
-            control.Visible = true;
-            gradesGrid.Visible= true;
         }
-        private void CloseFlyoutPanel()
+        public void CloseFlyoutPanel()
         {
+            
             crudFlyoutPanel.HidePopup();
             ResetView();
         }

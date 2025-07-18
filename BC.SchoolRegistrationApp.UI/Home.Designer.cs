@@ -46,7 +46,6 @@
             barButtonItem13 = new DevExpress.XtraBars.BarButtonItem();
             ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(components);
@@ -59,7 +58,7 @@
             ribbon.ExpandCollapseItem.Id = 0;
             ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] { ribbon.ExpandCollapseItem, ribbon.SearchEditItem, barButtonItem1, barButtonItem2, studentsButton, teachersButton, barButtonItem5, barButtonItem6, barButtonItem7, AddButton, UpdateButton, DeleteButton, barButtonItem11, barButtonItem12, barButtonItem13 });
             ribbon.Location = new System.Drawing.Point(0, 0);
-            ribbon.MaxItemId = 15;
+            ribbon.MaxItemId = 18;
             ribbon.Name = "ribbon";
             ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] { ribbonPage1 });
             ribbon.Size = new System.Drawing.Size(868, 193);
@@ -125,30 +124,18 @@
             // 
             // AddButton
             // 
-            AddButton.Caption = "ADD";
-            AddButton.Id = 8;
-            AddButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("AddButton.ImageOptions.Image");
-            AddButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("AddButton.ImageOptions.LargeImage");
+            AddButton.Id = 15;
             AddButton.Name = "AddButton";
-            AddButton.ItemClick += AddButton_ItemClick;
             // 
             // UpdateButton
             // 
-            UpdateButton.Caption = "UPDATE";
-            UpdateButton.Id = 9;
-            UpdateButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("UpdateButton.ImageOptions.Image");
-            UpdateButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("UpdateButton.ImageOptions.LargeImage");
+            UpdateButton.Id = 16;
             UpdateButton.Name = "UpdateButton";
-            UpdateButton.ItemClick += UpdateButton_ItemClick;
             // 
             // DeleteButton
             // 
-            DeleteButton.Caption = "DELETE";
-            DeleteButton.Id = 10;
-            DeleteButton.ImageOptions.Image = (System.Drawing.Image)resources.GetObject("DeleteButton.ImageOptions.Image");
-            DeleteButton.ImageOptions.LargeImage = (System.Drawing.Image)resources.GetObject("DeleteButton.ImageOptions.LargeImage");
+            DeleteButton.Id = 17;
             DeleteButton.Name = "DeleteButton";
-            DeleteButton.ItemClick += DeleteButton_ItemClick;
             // 
             // barButtonItem11
             // 
@@ -174,7 +161,7 @@
             // 
             // ribbonPage1
             // 
-            ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1, ribbonPageGroup3, ribbonPageGroup2 });
+            ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] { ribbonPageGroup1, ribbonPageGroup2 });
             ribbonPage1.Name = "ribbonPage1";
             ribbonPage1.Text = "BC School";
             // 
@@ -188,14 +175,6 @@
             ribbonPageGroup1.ItemLinks.Add(barButtonItem6, true);
             ribbonPageGroup1.ItemLinks.Add(barButtonItem7, true);
             ribbonPageGroup1.Name = "ribbonPageGroup1";
-            // 
-            // ribbonPageGroup3
-            // 
-            ribbonPageGroup3.AllowTextClipping = false;
-            ribbonPageGroup3.ItemLinks.Add(AddButton);
-            ribbonPageGroup3.ItemLinks.Add(UpdateButton);
-            ribbonPageGroup3.ItemLinks.Add(DeleteButton);
-            ribbonPageGroup3.Name = "ribbonPageGroup3";
             // 
             // ribbonPageGroup2
             // 
@@ -250,7 +229,6 @@
         private DevExpress.XtraBars.BarButtonItem UpdateButton;
         private DevExpress.XtraBars.BarButtonItem DeleteButton;
         private DevExpress.XtraBars.BarButtonItem barButtonItem11;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup3;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup2;
         private DevExpress.XtraBars.BarButtonItem barButtonItem12;
         private DevExpress.XtraBars.BarButtonItem barButtonItem13;

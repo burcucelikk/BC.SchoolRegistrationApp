@@ -23,7 +23,7 @@ namespace BC.SchoolRegistrationApp.BL.Resolvers
 
         public int Resolve(StudentDto source, Student destination, int destMember, ResolutionContext context)
         {
-            var classEntity = _classRepository.GetQueryable().FirstOrDefault(x => x.Name == source.ClassName);
+            var classEntity = _classRepository.GetQueryable().FirstOrDefault(x => x.Name == source.Class);
             return classEntity!= null ? classEntity.ID : 0;
         }
     }

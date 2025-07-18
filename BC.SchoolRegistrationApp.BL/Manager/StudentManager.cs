@@ -45,15 +45,5 @@ namespace BC.SchoolRegistrationApp.BL.Manager
         //        }).ToList();
         //}
         #endregion
-
-        //public override List<StudentDto> GetAll(Expression<Func<Student, bool>> filter = null)
-        //{
-        //    IQueryable<Student> query= _studentRepository.GetQueryable().Include(x=>x.Class);
-        //    if (filter != null)
-        //        query = query.Where(filter);
-
-        //    var entities = query.ToList();
-        //    return _mapper.Map<List<StudentDto>>(entities);
-        //}
     }
 }

@@ -10,9 +10,9 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete.Grade
     public class GradeDto :IDto
     {
         public int Id { get; set; }
-        public string StudentName { get; set; }
-        public string LessonName { get; set; }
-        public string ExamName { get; set; }
+        public string StudentFullName { get; set; }
+        public string Lesson { get; set; }
+        public string Exam { get; set; }
         public double Score { get; set; }
     }
 }

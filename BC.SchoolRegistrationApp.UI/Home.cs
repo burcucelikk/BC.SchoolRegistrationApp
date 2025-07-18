@@ -20,6 +20,7 @@ namespace BC.SchoolRegistrationApp.UI
     {
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
+        private readonly IGradeService _gradeService;
         private readonly ILessonService _lessonService;
         private readonly ITeacherService _teacherService;
 
@@ -28,13 +29,14 @@ namespace BC.SchoolRegistrationApp.UI
         private FrmTeachers frmTeachers;
         private FrmStudents frmStudents;
         private FrmAboutSchool frmAboutSchool;
-        public Home(IClassService classService, IStudentService studentService, ILessonService lessonService, ITeacherService teacherService)
+        public Home(IClassService classService, IStudentService studentService, ILessonService lessonService, ITeacherService teacherService, IGradeService gradeService)
         {
             InitializeComponent();
             _classService = classService;
             _studentService = studentService;
             _lessonService = lessonService;
             _teacherService = teacherService;
+            _gradeService = gradeService;
         }
         private void Home_Load(object sender, EventArgs e)
         {
@@ -45,38 +47,15 @@ namespace BC.SchoolRegistrationApp.UI
         {
             FormHelper.ShowForm(ref frmAboutSchool, () => new FrmAboutSchool(), this);
         }
-
         private void studentsButton_ItemClick(object sender, ItemClickEventArgs e)
         {
-            frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
+            frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService, _gradeService), this);
             frmStudents.ResetView();
+            frmStudents.CloseFlyoutPanel();
         }
         private void teachersButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             frmTeachers = FormHelper.ShowForm(ref frmTeachers, () => new FrmTeachers(_teacherService,_lessonService), this);
-        }
-        private void AddButton_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            _currentMode = FormMode.Add;
-            frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(_currentMode);
-            frmStudents.SetModeView();
-        }
-
-        private void UpdateButton_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            _currentMode = FormMode.Update;
-            frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(_currentMode);
-            frmStudents.SetModeView();
-        }
-
-        private void DeleteButton_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            _currentMode = FormMode.Delete;
-            frmStudents = FormHelper.ShowForm(ref frmStudents, () => new FrmStudents(_classService, _studentService), this);
-            frmStudents.SetFormMode(_currentMode);
-            frmStudents.SetModeView();
         }
 
     }

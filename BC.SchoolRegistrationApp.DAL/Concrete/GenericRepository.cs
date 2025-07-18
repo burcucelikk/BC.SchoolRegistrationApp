@@ -47,15 +47,6 @@ namespace BC.SchoolRegistrationApp.DAL.Concrete
         public void Update(T entity) =>
             _dbContext.Entry(entity).State = EntityState.Modified;
 
-        public T? GetByIdWithIncludes(int id, params Expression<Func<T, object>>[] includes)
-        {
-            IQueryable<T> query = _dbSet;
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
-            return query.FirstOrDefault(x => x.ID == id);
-        }
     }
 
 }

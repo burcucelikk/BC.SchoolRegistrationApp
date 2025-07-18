@@ -14,9 +14,7 @@ namespace BC.SchoolRegistrationApp.Dto.Concrete.Student
         public string Surname { get; set; }
         public string Number { get; set; }
         public string? Photograph { get; set; }
-        public string ClassName { get; set; }
+        public string Class { get; set; }
         public bool IsPassed { get; set; }
-
-        public List<GradeDetailDto> Grades { get; set; }
     }
 }
