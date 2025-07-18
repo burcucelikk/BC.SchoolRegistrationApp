@@ -4,6 +4,7 @@ using BC.SchoolRegistrationApp.Dto.Concrete.Grade;
 using BC.SchoolRegistrationApp.Dto.Concrete.Student;
 using BC.SchoolRegistrationApp.UI.Constants;
 using BC.SchoolRegistrationApp.UI.Helpers;
+using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
@@ -17,9 +18,9 @@ namespace BC.SchoolRegistrationApp.UI
 {
     public partial class FrmStudents : DevExpress.XtraEditors.XtraForm
     {
-        public enum FormMode { None, Add, Update, Delete, Detail}
+        public enum FormMode { None, Add, Update, Delete, Detail }
 
-        private FormMode _currentMode= FormMode.None;
+        private FormMode _currentMode = FormMode.None;
         private readonly IClassService _classService;
         private readonly IStudentService _studentService;
         private readonly IGradeService _gradeService;
@@ -60,6 +61,7 @@ namespace BC.SchoolRegistrationApp.UI
         }
         private void StudentsGrid_RowCellClick(object sender, RowCellClickEventArgs e)
         {
+
             var view = sender as GridView;
             var student = view.GetRow(e.RowHandle) as StudentListDto;
             if (student == null) return;
@@ -304,8 +306,7 @@ namespace BC.SchoolRegistrationApp.UI
 
                 if (gridView.Columns.ColumnByFieldName("Detail") == null)
                     DevExpToolHelper.AddButtonColumn(gridView, grid, "Detail", "Detail", studentDetailIcon);
-                
-                gridView.RowCellClick -= StudentsGrid_RowCellClick;
+
                 gridView.RowCellClick += StudentsGrid_RowCellClick;
                 gridView.OptionsView.ColumnAutoWidth = true;
                 gridView.BestFitColumns();
@@ -345,7 +346,7 @@ namespace BC.SchoolRegistrationApp.UI
             classFilterLookup.Enabled = false;
             if (_currentMode == FormMode.None)
             {
-                foreach(Control ctrl in TextGroup.Controls)
+                foreach (Control ctrl in TextGroup.Controls)
                 {
                     ctrl.Visible = false;
                     ctrl.Enabled = false;
@@ -359,7 +360,7 @@ namespace BC.SchoolRegistrationApp.UI
                     ctrl.Enabled = true;
                     if (ctrl is TextEdit textEdit)
                         textEdit.ReadOnly = false;
-                    if (ctrl == searchButton || ctrl == deleteBtn || ctrl == searchButton || ctrl == checkEdit1 || ctrl== gradesGrid)
+                    if (ctrl == searchButton || ctrl == deleteBtn || ctrl == searchButton || ctrl == checkEdit1 || ctrl == gradesGrid)
                     {
                         ctrl.Enabled = false;
                         ctrl.Visible = false;
@@ -384,13 +385,13 @@ namespace BC.SchoolRegistrationApp.UI
             }
             else if (_currentMode == FormMode.Detail)
             {
-                foreach(Control ctrl in TextGroup.Controls)
+                foreach (Control ctrl in TextGroup.Controls)
                 {
                     ctrl.Visible = true;
                     ctrl.Enabled = false;
                     if (ctrl is TextEdit textEdit)
                         textEdit.ReadOnly = true;
-                    if (ctrl == deleteBtn || ctrl == Save  || ctrl == searchButton)
+                    if (ctrl == deleteBtn || ctrl == Save || ctrl == searchButton)
                     {
                         ctrl.Enabled = false;
                         ctrl.Visible = false;
@@ -441,9 +442,25 @@ namespace BC.SchoolRegistrationApp.UI
         }
         public void CloseFlyoutPanel()
         {
-            
-            crudFlyoutPanel.HidePopup();
-            ResetView();
+            if (crudFlyoutPanel != null && crudFlyoutPanel.Visible) 
+            { 
+                crudFlyoutPanel.HidePopup();
+                ResetView();
+
+                StudentsGrid.Enabled = false;
+
+                Timer timer = new Timer();
+                timer.Interval = 500;
+                timer.Tick += (s, e) =>
+                {
+                    StudentsGrid.Enabled = true;
+                    timer.Stop();
+                    timer.Dispose();
+                };
+                timer.Start();
+            }
+            else 
+                ResetView();
         }
     }
 }
