@@ -190,6 +190,8 @@ namespace BC.SchoolRegistrationApp.UI
             var classStudents = _studentService.GetAll(x => x.Class.Name == selectedClass);
             grid.DataSource = classStudents;
             CallStudentGrid(grid);
+            if (grid.MainView is GridView view)
+                view.RefreshData();
         }
         private bool AddStudent(string name, string surname, string number, Image photograph, string className)
         {
@@ -223,7 +225,7 @@ namespace BC.SchoolRegistrationApp.UI
                 student.Surname = string.IsNullOrWhiteSpace(surname) ? student.Surname : surname;
                 student.Number = string.IsNullOrWhiteSpace(number) ? student.Number : number;
                 student.Photograph = photograph == null ? student.Photograph : ImageHelper.ToBase64(photograph);
-                student.Class = string.IsNullOrWhiteSpace(className) ? student.Class : className;
+                student.ClassName = string.IsNullOrWhiteSpace(className) ? student.ClassName : className;
 
                 _studentService.Update(student);
                 DevExpToolHelper.ClearInputs(TextGroup);
@@ -254,7 +256,7 @@ namespace BC.SchoolRegistrationApp.UI
                 try
                 {
                     _studentService.Delete(student);
-                    ShowClassStudents(student.Class, StudentsGrid);
+                    ShowClassStudents(student.ClassName, StudentsGrid);
                     DevExpToolHelper.ClearInputs(TextGroup);
                     _studentDto = null;
                     _studentUpdateDto = null;
@@ -277,7 +279,7 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit3.Text = dto.Number;
             imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
 
-            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.Class);
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
             classInputLookup.EditValue = selectedClass?.Id;
         }
         private void FillStudentDetailDto(StudentDetailDto dto)
@@ -287,7 +289,7 @@ namespace BC.SchoolRegistrationApp.UI
             textEdit3.Text = dto.Number;
             imageEdit1.Image = string.IsNullOrWhiteSpace(dto.Photograph) ? null : ImageHelper.FromBase64(dto.Photograph);
             checkEdit1.Checked = dto.IsPassed;
-            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.Class);
+            var selectedClass = _classService.GetAll().FirstOrDefault(c => c.Name == dto.ClassName);
             classInputLookup.EditValue = selectedClass?.Id;
         }
         private void CallStudentGrid(GridControl grid)
@@ -318,10 +320,10 @@ namespace BC.SchoolRegistrationApp.UI
             gridLookUpEdit.Properties.DataSource = classList;
             gridLookUpEdit.Properties.DisplayMember = "Name";
             gridLookUpEdit.Properties.ValueMember = "Id";
-            gridLookUpEdit.Properties.NullText = "Classes";
+            gridLookUpEdit.Properties.NullText = "Seçiniz";
             gridLookUpEdit.EditValue = null;
             gridLookUpEdit.Properties.View.Columns.Clear();
-            gridLookUpEdit.Properties.View.Columns.AddVisible("Name", "Class");
+            gridLookUpEdit.Properties.View.Columns.AddVisible("Name", "Sınıf");
         }
         private void LoadGradesToGrid(List<GradeDetailDto> grades)
         {

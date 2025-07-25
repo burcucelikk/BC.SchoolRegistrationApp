@@ -145,7 +145,7 @@
             addButton.Name = "addButton";
             addButton.Size = new System.Drawing.Size(85, 36);
             addButton.TabIndex = 17;
-            addButton.Text = "ADD";
+            addButton.Text = "EKLE";
             addButton.Click += addButton_Click;
             // 
             // updateButton
@@ -167,7 +167,7 @@
             updateButton.Name = "updateButton";
             updateButton.Size = new System.Drawing.Size(85, 36);
             updateButton.TabIndex = 18;
-            updateButton.Text = "UPDATE";
+            updateButton.Text = "GÜNCELLE";
             updateButton.Click += updateButton_Click;
             // 
             // deleteButton
@@ -189,7 +189,7 @@
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new System.Drawing.Size(85, 36);
             deleteButton.TabIndex = 19;
-            deleteButton.Text = "DELETE";
+            deleteButton.Text = "SİL";
             deleteButton.Click += deleteButton_Click;
             // 
             // crudGroup
@@ -209,7 +209,7 @@
             overlayPanel.Controls.Add(crudFlyoutPanel);
             overlayPanel.Location = new System.Drawing.Point(-1, 5);
             overlayPanel.Name = "overlayPanel";
-            overlayPanel.Size = new System.Drawing.Size(868, 372);
+            overlayPanel.Size = new System.Drawing.Size(720, 372);
             overlayPanel.TabIndex = 23;
             // 
             // crudFlyoutPanel
@@ -316,7 +316,7 @@
             deleteBtn.Name = "deleteBtn";
             deleteBtn.Size = new System.Drawing.Size(115, 39);
             deleteBtn.TabIndex = 14;
-            deleteBtn.Text = "DELETE";
+            deleteBtn.Text = "SİL";
             deleteBtn.Click += deleteBtn_Click;
             // 
             // classInputLookup
@@ -357,41 +357,41 @@
             // 
             labelControl5.Location = new System.Drawing.Point(70, 46);
             labelControl5.Name = "labelControl5";
-            labelControl5.Size = new System.Drawing.Size(47, 16);
+            labelControl5.Size = new System.Drawing.Size(40, 16);
             labelControl5.TabIndex = 10;
-            labelControl5.Text = "CLASS: ";
+            labelControl5.Text = "SINIF: ";
             // 
             // labelControl4
             // 
             labelControl4.Location = new System.Drawing.Point(25, 167);
             labelControl4.Name = "labelControl4";
-            labelControl4.Size = new System.Drawing.Size(89, 16);
+            labelControl4.Size = new System.Drawing.Size(73, 16);
             labelControl4.TabIndex = 9;
-            labelControl4.Text = "PHOTOGRAPH: ";
+            labelControl4.Text = "FOTOĞRAF: ";
             // 
             // labelControl3
             // 
             labelControl3.Location = new System.Drawing.Point(57, 141);
             labelControl3.Name = "labelControl3";
-            labelControl3.Size = new System.Drawing.Size(57, 16);
+            labelControl3.Size = new System.Drawing.Size(59, 16);
             labelControl3.TabIndex = 8;
-            labelControl3.Text = "NUMBER: ";
+            labelControl3.Text = "NUMARA: ";
             // 
             // labelControl2
             // 
             labelControl2.Location = new System.Drawing.Point(48, 113);
             labelControl2.Name = "labelControl2";
-            labelControl2.Size = new System.Drawing.Size(66, 16);
+            labelControl2.Size = new System.Drawing.Size(49, 16);
             labelControl2.TabIndex = 7;
-            labelControl2.Text = "SURNAME: ";
+            labelControl2.Text = "SOYAD: ";
             // 
             // labelControl1
             // 
             labelControl1.Location = new System.Drawing.Point(72, 86);
             labelControl1.Name = "labelControl1";
-            labelControl1.Size = new System.Drawing.Size(42, 16);
+            labelControl1.Size = new System.Drawing.Size(25, 16);
             labelControl1.TabIndex = 6;
-            labelControl1.Text = "NAME: ";
+            labelControl1.Text = "AD: ";
             // 
             // Save
             // 
@@ -402,7 +402,7 @@
             Save.Name = "Save";
             Save.Size = new System.Drawing.Size(115, 39);
             Save.TabIndex = 5;
-            Save.Text = "SAVE";
+            Save.Text = "KAYDET";
             Save.Click += Save_Click;
             // 
             // textEdit3
@@ -438,7 +438,7 @@
             Controls.Add(classFilterLookup);
             Controls.Add(StudentsGrid);
             Name = "FrmStudents";
-            Text = "Students";
+            Text = "Öğrenciler";
             Load += FrmStudents_Load;
             ((System.ComponentModel.ISupportInitialize)StudentsGrid).EndInit();
             ((System.ComponentModel.ISupportInitialize)studentsGridView).EndInit();

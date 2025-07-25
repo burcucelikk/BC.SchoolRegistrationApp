@@ -14,16 +14,23 @@ namespace BC.SchoolRegistrationApp.BL.Mappings
     {
         public LessonProfile() 
         {
-            CreateMap<Lesson, LessonDto>();
-            CreateMap<Lesson, LessonListDto>();
-            CreateMap<Lesson, LessonAddDto>().ReverseMap();
-            CreateMap<Lesson, LessonUpdateDto>().ReverseMap();
+            CreateMap<Lesson, LessonDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID))
+                .ReverseMap();
 
-            CreateMap<Lesson, LessonDetailDto>()
-                .ForMember(dest => dest.TeacherNames, opt => opt.MapFrom(src =>
-                    src.Teachers.Select(t => t.Name + " " + t.Surname)))
-                .ForMember(dest => dest.ClassNames, opt => opt.MapFrom(src =>
-                    src.ClassLessons.Select(cl => cl.Class.Name)));
+            CreateMap<Lesson, LessonListDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID));
+
+            CreateMap<Lesson, LessonDetailDto>();
+
+            CreateMap<LessonAddDto, Lesson>();
+
+            CreateMap<LessonUpdateDto,Lesson>()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID));
+
+            
         }
-    }
+    }    
 }

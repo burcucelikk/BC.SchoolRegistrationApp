@@ -15,9 +15,12 @@ namespace BC.SchoolRegistrationApp.BL.Mappings
         public TeacherProfile() 
         {
             CreateMap<Teacher, TeacherDto>()
-                .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID))
+                .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name))
+                .ReverseMap();
 
             CreateMap<Teacher, TeacherListDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID))
                 .ForMember(dest => dest.LessonName, opt => opt.MapFrom(src => src.Lesson.Name));
 
             CreateMap<Teacher, TeacherDetailDto>()
@@ -26,7 +29,10 @@ namespace BC.SchoolRegistrationApp.BL.Mappings
 
             CreateMap<TeacherAddDto, Teacher>();
 
-            CreateMap<TeacherUpdateDto, Teacher>().ReverseMap();
+            CreateMap<TeacherUpdateDto, Teacher>()
+                .ForMember(dest => dest.ID, opt => opt.MapFrom(src => src.Id))
+                .ReverseMap()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ID));
         }
     }
 }
